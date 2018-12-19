@@ -159,6 +159,7 @@ header h1 {
 		-webkit-transition: all 0s;
 		-moz-transition: all 0s;
 		transition: all 0s;
+		margin-right: 10%;
 	}
 	#cd-nav li {
 		display: inline-block;
@@ -168,6 +169,8 @@ header h1 {
 		padding: .4em;
 		margin-left: 1.6em;
 		border-bottom: none;
+		font-size: 19px;
+        font-weight: bold;
 	}
 	#cd-nav li a:hover {
 		color: gray;

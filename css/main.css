@@ -68,6 +68,14 @@ header {
 	margin-top: -80px;
 }
 
+#header-bg-2 {
+	background-image: url(/img/1.jpg);
+}
+
+.motto{
+	 margin: 0px 25% 0;
+}
+
 
 /*Preloader end*/
 
@@ -89,7 +97,7 @@ main {
 	font-size: 20px;
 	line-height: 1.4em;
 	font-family: "KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
-	margin: 100px 20px 0 20px;
+	margin: 50px 20px 0 20px;
 }
 
 @media(max-width:512px) {
