@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>linux用户和用户组操作命令</title>
+	<title>视频播放插件JWPlayer的使用</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,7 +54,7 @@
 		
 		
 			
-			<p class="page-name">当前文章&nbsp;:&nbsp;《linux用户和用户组操作命令》</p>
+			<p class="page-name">当前文章&nbsp;:&nbsp;《视频播放插件JWPlayer的使用》</p>
 			
 		
 	
@@ -158,8 +158,8 @@
 					
 					
 	
-		<a href="/2017/06/20/linux用户和用户组操作命令/" itemprop="url">		
-			linux用户和用户组操作命令		
+		<a href="/2018/08/09/视频播放插件JWPlayer的使用/" itemprop="url">		
+			视频播放插件JWPlayer的使用		
 		</a>
 	
 
@@ -168,9 +168,9 @@
 				<p class="am-article-meta blog-text-center">
 					<span>
 						<i class="fa fa-clock-o"></i> 
-						<a href="/2017/06/20/linux用户和用户组操作命令/" itemprop="url">
-	<time datetime="2017-06-20T13:57:20.000Z" itemprop="datePublished">
-  		2017-06-20
+						<a href="/2018/08/09/视频播放插件JWPlayer的使用/" itemprop="url">
+	<time datetime="2018-08-09T11:15:42.000Z" itemprop="datePublished">
+  		2018-08-09
   </time>
 </a>    
 &nbsp;
@@ -180,7 +180,7 @@
 						
 							<i class="fa fa-tags"></i>
 							
-								<a href="#linux" title="linux" rel="1">linux</a>&nbsp;
+								<a href="#JwPlayer" title="JwPlayer" rel="1">JwPlayer</a>&nbsp;
 													 											
 						
 					</span>
@@ -190,110 +190,9 @@
 			<div class="am-article-bd">
 				<div class="content" id="post-content">
 					
-						<h2 id="用户的操作命令"><a href="#用户的操作命令" class="headerlink" title="用户的操作命令"></a>用户的操作命令</h2><h3 id="useradd-添加新用户"><a href="#useradd-添加新用户" class="headerlink" title="useradd 添加新用户"></a>useradd 添加新用户</h3><ul>
-<li><p>基本语法：</p>
-<p>  useradd 用户名 （功能描述：添加新用户）</p>
-</li>
-<li>示例： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]# useradd test1</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="passwd-设置用户密码"><a href="#passwd-设置用户密码" class="headerlink" title="passwd 设置用户密码"></a>passwd 设置用户密码</h3><ul>
-<li><p>基本语法：</p>
-<p>   passwd 用户名    （功能描述：设置用户密码）</p>
-</li>
-<li>示例 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]# passwd 123456</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="id-判断用户是否存在"><a href="#id-判断用户是否存在" class="headerlink" title="id 判断用户是否存在"></a>id 判断用户是否存在</h3><ul>
-<li><p>基本语法：</p>
-<p>id 用户名</p>
-</li>
-<li>示例：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]# id test1</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="su-切换用户"><a href="#su-切换用户" class="headerlink" title="su 切换用户"></a>su 切换用户</h3><ul>
-<li><p>基本语法：</p>
-<p>su 用户名称                     （功能描述：切换用户）</p>
-</li>
-<li>示例  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#su test1</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="userdel-删除用户"><a href="#userdel-删除用户" class="headerlink" title="userdel 删除用户"></a>userdel 删除用户</h3><ul>
-<li><p>基本语法：</p>
-<ol>
-<li>userdel  用户名        （功能描述：删除用户但保存用户主目录）</li>
-<li>userdel -r 用户名        （功能描述：用户和用户主目录，都删除）</li>
-</ol>
-</li>
-<li><p>示例：</p>
-<ol>
-<li><p>删除用户但保存用户主目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#userdel test1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除用户和用户主目录，都删除</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#userdel –r test1</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="设置test1普通用户具有root权限"><a href="#设置test1普通用户具有root权限" class="headerlink" title="设置test1普通用户具有root权限"></a>设置test1普通用户具有root权限</h3><ul>
-<li><p>修改配置文件</p>
-<p>  修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">##Allow root to run any commands anywhere</span><br><span class="line">root    ALL=(ALL)     ALL</span><br><span class="line">test1   ALL=(ALL)     ALL</span><br></pre></td></tr></table></figure>
-<p> 修改完毕，现在可以用test1帐号登录，然后用命令 su - ，即可获得root权限进行操作。</p>
-</li>
-<li><p>示例</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[test1@centeros opt]# sudo mkdir module</span><br><span class="line">[root@centeros opt]#chown test1:test1 module/</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="cat-etc-passwd-查看创建了哪些用户"><a href="#cat-etc-passwd-查看创建了哪些用户" class="headerlink" title="cat  /etc/passwd 查看创建了哪些用户"></a>cat  /etc/passwd 查看创建了哪些用户</h3><ul>
-<li><p>示例</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#cat  /etc/passwd</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="usermod修改用户"><a href="#usermod修改用户" class="headerlink" title="usermod修改用户"></a>usermod修改用户</h3><ul>
-<li><p>基本语法：</p>
-<p> usermod -g 用户组 用户名</p>
-</li>
-<li><p>示例：</p>
-<p> 将用户test1加入dev用户组</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#usermod –g dev test1</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="用户组的操作命令"><a href="#用户组的操作命令" class="headerlink" title="用户组的操作命令"></a>用户组的操作命令</h2><p>&ensp;&ensp;每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux 系统对用户组的规定有所不同，<br>如Linux下的用户属于与它同名的用户组，这个用户组在创建用户时同时创建。<br>用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对/etc/group文件的更新。</p>
-<h3 id="groupadd-新增组"><a href="#groupadd-新增组" class="headerlink" title="groupadd 新增组"></a>groupadd 新增组</h3><ul>
-<li><p>基本语法</p>
-<p>groupadd 组名</p>
-</li>
-<li><p>示例：</p>
-<p>添加一个testgroup组</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#groupadd testgroup</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="groupdel删除组"><a href="#groupdel删除组" class="headerlink" title="groupdel删除组"></a>groupdel删除组</h3><ul>
-<li><p>基本语法：</p>
-<p>groupdel 组名</p>
-</li>
-<li>示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]# groupdel testgroup</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="groupmod修改组"><a href="#groupmod修改组" class="headerlink" title="groupmod修改组"></a>groupmod修改组</h3><ul>
-<li><p>基本语法：</p>
-<p>groupmod -n 新组名 老组名</p>
-</li>
-<li><p>示例</p>
-<p>修改testgroup组名称为testgroup1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]# groupmod –n testgroup1 testgroup</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="cat-etc-group-查看创建了哪些组"><a href="#cat-etc-group-查看创建了哪些组" class="headerlink" title="cat  /etc/group 查看创建了哪些组"></a>cat  /etc/group 查看创建了哪些组</h3><ul>
-<li>示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#cat  /etc/group</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><ul>
-<li>示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]# groupadd dev</span><br><span class="line">[root@centeros opt]# groupmod -n device dev</span><br><span class="line">[root@centeros opt]# usermod -g device test1</span><br></pre></td></tr></table></figure></li>
-</ul>
-
+						<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>  &ensp;&ensp;JW Media Player是一个开源的在网页上使用的Flash视频、音频以及图片播放器，<br>支持 Sliverlight 播放，支持H.264 ( .mp4, .mov, .f4v )、FLV ( .flv ) 、<br>3GPP ( .3gp, .3g2 )、OGG Theora ( .ogv )和WebM ( .webm )视频格式，MP3<br>( .mp3 )、AAC ( .aac, .m4a )、OGG Vorbis ( .ogg )和WAV ( .wav )音频，<br>同时也支持swf和图片( gif 、jpg、png)和YouTube格式视频。<br>官网地址：<a href="https://www.jwplayer.com/learn-more/" target="_blank" rel="noopener">https://www.jwplayer.com/learn-more/</a><br>输入邮箱即可下载， 核心文件 jwplayer.js和player.swf。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="引入JS"><a href="#引入JS" class="headerlink" title="引入JS"></a>引入JS</h3><p><code>&lt;script src=&quot;js/plugins/jwplayer/jwplayer.js&quot;&gt;&lt;/script&gt;</code></p>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3> <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">/* html*/</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"player-play"</span> <span class="attr">value</span>=<span class="string">"播放"</span> /&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"player-stop"</span> <span class="attr">value</span>=<span class="string">"停止"</span> /&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"player-status"</span> <span class="attr">value</span>=<span class="string">"取得状态"</span> /&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"player-current"</span> <span class="attr">value</span>=<span class="string">"当前播放秒数"</span> /&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"player-goto"</span> <span class="attr">value</span>=<span class="string">"转到第30秒播放"</span> /&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"player-length"</span> <span class="attr">value</span>=<span class="string">"视频时长(秒)"</span> /&gt;</span>  </span><br><span class="line"></span><br><span class="line"> /* js*/</span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined">  </span></span><br><span class="line"><span class="undefined">  var thePlayer;  </span></span><br><span class="line"><span class="undefined">  $(function() &#123;  </span></span><br><span class="line"><span class="undefined">      thePlayer = jwplayer('container').setup(&#123;  </span></span><br><span class="line"><span class="undefined">          flashplayer: 'js/plugins/jwplayer/player.swf',  </span></span><br><span class="line"><span class="undefined">          file: 'js/plugins/jwplayer/video.mp4',  </span></span><br><span class="line"><span class="undefined">           aspectratio: "16:9",//播放器自适应比例 </span></span><br><span class="line"><span class="undefined">    type:"mp4",//播放文件类型（可选）</span></span><br><span class="line"><span class="undefined">    title: "点击播放",//标题（可选）</span></span><br><span class="line"><span class="undefined">    width: "85%",  </span></span><br><span class="line"><span class="undefined">           height: "80%",   </span></span><br><span class="line"><span class="undefined">           dock: false  </span></span><br><span class="line"><span class="undefined">      &#125;);  </span></span><br><span class="line"><span class="undefined">        </span></span><br><span class="line"><span class="undefined">      //播放 暂停  </span></span><br><span class="line"><span class="undefined">      $('.player-play').click(function() &#123;  </span></span><br><span class="line"><span class="undefined">          if (thePlayer.getState() != 'PLAYING') &#123;  </span></span><br><span class="line"><span class="undefined">              thePlayer.play(true);  </span></span><br><span class="line"><span class="undefined">              this.value = '暂停';  </span></span><br><span class="line"><span class="undefined">          &#125; else &#123;  </span></span><br><span class="line"><span class="undefined">              thePlayer.play(false);  </span></span><br><span class="line"><span class="undefined">              this.value = '播放';  </span></span><br><span class="line"><span class="undefined">          &#125;  </span></span><br><span class="line"><span class="undefined">      &#125;);  </span></span><br><span class="line"><span class="undefined">        </span></span><br><span class="line"><span class="undefined">      //停止  </span></span><br><span class="line"><span class="undefined">      $('.player-stop').click(function() &#123; thePlayer.stop(); &#125;);  </span></span><br><span class="line"><span class="undefined">        </span></span><br><span class="line"><span class="undefined">      //获取状态  </span></span><br><span class="line"><span class="undefined">      $('.player-status').click(function() &#123;  </span></span><br><span class="line"><span class="undefined">          var state = thePlayer.getState();  </span></span><br><span class="line"><span class="undefined">          var msg;  </span></span><br><span class="line"><span class="undefined">          switch (state) &#123;  </span></span><br><span class="line"><span class="undefined">              case 'BUFFERING':  </span></span><br><span class="line"><span class="undefined">                  msg = '加载中';  </span></span><br><span class="line"><span class="undefined">                  break;  </span></span><br><span class="line"><span class="undefined">              case 'PLAYING':  </span></span><br><span class="line"><span class="undefined">                  msg = '正在播放';  </span></span><br><span class="line"><span class="undefined">                  break;  </span></span><br><span class="line"><span class="undefined">              case 'PAUSED':  </span></span><br><span class="line"><span class="undefined">                  msg = '暂停';  </span></span><br><span class="line"><span class="undefined">                  break;  </span></span><br><span class="line"><span class="undefined">              case 'IDLE':  </span></span><br><span class="line"><span class="undefined">                  msg = '停止';  </span></span><br><span class="line"><span class="undefined">                  break;  </span></span><br><span class="line"><span class="undefined">          &#125;  </span></span><br><span class="line"><span class="undefined">          alert(msg);  </span></span><br><span class="line"><span class="undefined">      &#125;);  </span></span><br><span class="line"><span class="undefined">        </span></span><br><span class="line"><span class="undefined">      //获取播放进度  </span></span><br><span class="line"><span class="undefined">      $('.player-current').click(function() &#123; alert(thePlayer.getPosition()); &#125;);  </span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">      //跳转到指定位置播放  </span></span><br><span class="line"><span class="undefined">      $('.player-goto').click(function() &#123;  </span></span><br><span class="line"><span class="undefined">          if (thePlayer.getState() != 'PLAYING') &#123;    //若当前未播放，先启动播放器  </span></span><br><span class="line"><span class="undefined">              thePlayer.play();  </span></span><br><span class="line"><span class="undefined">          &#125;  </span></span><br><span class="line"><span class="undefined">          thePlayer.seek(30); //从指定位置开始播放(单位：秒)  </span></span><br><span class="line"><span class="undefined">      &#125;);  </span></span><br><span class="line"><span class="undefined">        </span></span><br><span class="line"><span class="undefined">      //获取视频长度  </span></span><br><span class="line"><span class="undefined">      $('.player-length').click(function() &#123; alert(thePlayer.getDuration()); &#125;);  </span></span><br><span class="line"><span class="undefined">  &#125;);  </span></span><br><span class="line"><span class="undefined">   </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 					
 				</div>
 			</div>
@@ -302,14 +201,14 @@
 		<ul class="am-pagination">
     
     	<li class="am-pagination-prev">
-   		<a class="pull-left" href="/2018/08/09/视频播放插件JWPlayer的使用/" title="视频播放插件JWPlayer的使用">
+   		<a class="pull-left" href="/2018/09/19/认识hadoop/" title="认识hadoop">
       		&laquo; 上一篇
 		</a>
 		</li>
 	
 	
 		<li class="am-pagination-next">
-		<a class="pull-right" href="/2017/03/24/优化Tomcat配置/" title="优化Tomcat配置">
+		<a class="pull-right" href="/2017/06/20/linux用户和用户组操作命令/" title="linux用户和用户组操作命令">
 			下一篇 &raquo;
 		</a>
 		</li>
@@ -438,7 +337,7 @@
 				
 				
 				<!--toc(post.content)-->
-				<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用户的操作命令"><span class="post-toc-text">用户的操作命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#useradd-添加新用户"><span class="post-toc-text">useradd 添加新用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#passwd-设置用户密码"><span class="post-toc-text">passwd 设置用户密码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#id-判断用户是否存在"><span class="post-toc-text">id 判断用户是否存在</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#su-切换用户"><span class="post-toc-text">su 切换用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#userdel-删除用户"><span class="post-toc-text">userdel 删除用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#设置test1普通用户具有root权限"><span class="post-toc-text">设置test1普通用户具有root权限</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cat-etc-passwd-查看创建了哪些用户"><span class="post-toc-text">cat  /etc/passwd 查看创建了哪些用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#usermod修改用户"><span class="post-toc-text">usermod修改用户</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用户组的操作命令"><span class="post-toc-text">用户组的操作命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#groupadd-新增组"><span class="post-toc-text">groupadd 新增组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#groupdel删除组"><span class="post-toc-text">groupdel删除组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#groupmod修改组"><span class="post-toc-text">groupmod修改组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cat-etc-group-查看创建了哪些组"><span class="post-toc-text">cat  /etc/group 查看创建了哪些组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用示例"><span class="post-toc-text">使用示例</span></a></li></ol></li></ol>
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用"><span class="post-toc-text">使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#引入JS"><span class="post-toc-text">引入JS</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用-1"><span class="post-toc-text">使用</span></a></li></ol></li></ol>
 			</nav>
 			<div class="post-toc-bar"><div>
 		</div></div></aside>
