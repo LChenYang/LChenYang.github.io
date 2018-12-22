@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>linux用户和用户组操作命令</title>
+	<title>浅析Tomcat原理及请求过程</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,7 +54,7 @@
 		
 		
 			
-			<p class="page-name">当前文章&nbsp;:&nbsp;《linux用户和用户组操作命令》</p>
+			<p class="page-name">当前文章&nbsp;:&nbsp;《浅析Tomcat原理及请求过程》</p>
 			
 		
 	
@@ -158,8 +158,8 @@
 					
 					
 	
-		<a href="/2017/06/20/linux用户和用户组操作命令/" itemprop="url">		
-			linux用户和用户组操作命令		
+		<a href="/2017/03/22/浅析Tomcat原理及请求过程/" itemprop="url">		
+			浅析Tomcat原理及请求过程		
 		</a>
 	
 
@@ -168,9 +168,9 @@
 				<p class="am-article-meta blog-text-center">
 					<span>
 						<i class="fa fa-clock-o"></i> 
-						<a href="/2017/06/20/linux用户和用户组操作命令/" itemprop="url">
-	<time datetime="2017-06-20T13:57:20.000Z" itemprop="datePublished">
-  		2017-06-20
+						<a href="/2017/03/22/浅析Tomcat原理及请求过程/" itemprop="url">
+	<time datetime="2017-03-22T13:05:24.000Z" itemprop="datePublished">
+  		2017-03-22
   </time>
 </a>    
 &nbsp;
@@ -180,7 +180,7 @@
 						
 							<i class="fa fa-tags"></i>
 							
-								<a href="#linux" title="linux" rel="1">linux</a>&nbsp;
+								<a href="#tomcat" title="tomcat" rel="1">tomcat</a>&nbsp;
 													 											
 						
 					</span>
@@ -190,109 +190,108 @@
 			<div class="am-article-bd">
 				<div class="content" id="post-content">
 					
-						<h2 id="用户的操作命令"><a href="#用户的操作命令" class="headerlink" title="用户的操作命令"></a>用户的操作命令</h2><h3 id="useradd-添加新用户"><a href="#useradd-添加新用户" class="headerlink" title="useradd 添加新用户"></a>useradd 添加新用户</h3><ul>
-<li><p>基本语法：</p>
-<p>  useradd 用户名 （功能描述：添加新用户）</p>
-</li>
-<li>示例： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]# useradd test1</span><br></pre></td></tr></table></figure>
-</li>
+						<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>&emsp;&emsp;Tomcat是一个JSP/Servlet容器。其作为Servlet容器，有三种工作模式：独立的Servlet容器、进程内的Servlet容器和进程外的Servlet容器。</p>
+<h3 id="Tomcat目录："><a href="#Tomcat目录：" class="headerlink" title="Tomcat目录："></a>Tomcat目录：</h3><pre><code>tomcat
+|---bin：存放启动和关闭tomcat脚本
+
+|---conf：存放不同的配置文件（server.xml和web.xml）；
+|---doc：存放Tomcat文档；
+|---lib/japser/common：存放Tomcat运行需要的库文件（JARS）；
+|---logs：存放Tomcat执行时的LOG文件；
+|---src：存放Tomcat的源代码；
+|---webapps：Tomcat的主要Web发布目录（包括应用程序示例）；
+|---work：存放jsp编译后产生的class文件；
+</code></pre><h3 id="Tomcat配置文件："><a href="#Tomcat配置文件：" class="headerlink" title="Tomcat配置文件："></a>Tomcat配置文件：</h3><p>我们打开con文件夹可以看到Tomcat的配置文件：</p>
+<ul>
+<li>server.xml: Tomcat的主配置文件，包含Service, Connector, Engine, Realm, Valve, Hosts主组件的相关配置信息；</li>
+<li>web.xml：遵循Servlet规范标准的配置文件，用于配置servlet，并为所有的Web应用程序提供包括MIME映射等默认配置信息；</li>
+<li>tomcat-user.xml：Realm认证时用到的相关角色、用户和密码等信息；Tomcat自带的manager默认情况下会用到此文件；在Tomcat中添加/删除用户，为用户　　指定角色等将通过编辑此文件实现；</li>
+<li>catalina.policy：Java相关的安全策略配置文件，在系统资源级别上提供访问控制的能力；</li>
+<li>catalina.properties：Tomcat内部package的定义及访问相关控制，也包括对通过类装载器装载的内容的控制；Tomcat在启动时会事先读取此文件的相关设置；</li>
+<li>logging.properties: Tomcat6通过自己内部实现的JAVA日志记录器来记录操作相关的日志，此文件即为日志记录器相关的配置信息，可以用来定义日志记录的组　　件级别以及日志文件的存在位置等；</li>
+<li>context.xml：所有host的默认配置信息；</li>
 </ul>
-<h3 id="passwd-设置用户密码"><a href="#passwd-设置用户密码" class="headerlink" title="passwd 设置用户密码"></a>passwd 设置用户密码</h3><ul>
-<li><p>基本语法：</p>
-<p>   passwd 用户名    （功能描述：设置用户密码）</p>
-</li>
-<li>示例 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]# passwd 123456</span><br></pre></td></tr></table></figure>
-</li>
+<h3 id="Tomcat架构及常用的组件："><a href="#Tomcat架构及常用的组件：" class="headerlink" title="Tomcat架构及常用的组件："></a>Tomcat架构及常用的组件：</h3><h4 id="Server组件"><a href="#Server组件" class="headerlink" title="Server组件"></a>Server组件</h4><p>   <code>&lt;Server port=&quot;8005&quot; shutdown=&quot;SHUTDOWN&quot;&gt;</code></p>
+<p>这会让Tomcat6启动一个server实例（即一个JVM），它监听在8005端口以接收shutdown命令，<br>使用 telnet 连接8005 端口可以直接执行 SHUTDOWN 命令来关闭 Tomcat。<br>各Server的定义不能使用同一个端口，这意味着如果在同一个物理机上启动了多个Server实例，必须配置它们使用不同的端口。<br>这个端口的定义用于为管理员提供一个关闭此实例的便捷途径，因此，<br>管理员可以直接telnet至此端口使用SHUTDOWN命令关闭此实例。<br>不过，基于安全角度的考虑，这通常不允许远程进行。</p>
+<p>Server的相关属性：</p>
+<ul>
+<li>className: 用于实现此Server容器的完全限定类的名称，默认为org.apache.catalina.core.StandardServer；<br></li>
+<li>port: 接收shutdown指令的端口，默认仅允许通过本机访问，默认为8005；<br></li>
+<li>shutdown：发往此Server用于实现关闭tomcat实例的命令字符串，默认为SHUTDOWN；</li>
 </ul>
-<h3 id="id-判断用户是否存在"><a href="#id-判断用户是否存在" class="headerlink" title="id 判断用户是否存在"></a>id 判断用户是否存在</h3><ul>
-<li><p>基本语法：</p>
-<p>id 用户名</p>
-</li>
-<li>示例：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]# id test1</span><br></pre></td></tr></table></figure>
-</li>
+<h4 id="Service组件"><a href="#Service组件" class="headerlink" title="Service组件"></a>Service组件</h4><p>Service主要用于关联一个引擎和与此引擎相关的连接器，<br>每个连接器通过一个特定的端口和协议接收入站请求交将其转发至关联的引擎进行处理。<br>困此，Service要包含一个引擎、一个或多个连接器。</p>
+<p> <code>&lt;Service name=&quot;Catalina&quot;&gt;</code></p>
+<p>这定义了一个名为Catalina的Service，此名字也会在产生相关的日志信息时记录在日志文件当中。</p>
+<p>Service相关的属性：</p>
+<ul>
+<li>className： 用于实现service的类名，一般都是org.apache.catalina.core.StandardService <br></li>
+<li>name：此服务的名称，默认为Catalina；</li>
 </ul>
-<h3 id="su-切换用户"><a href="#su-切换用户" class="headerlink" title="su 切换用户"></a>su 切换用户</h3><ul>
-<li><p>基本语法：</p>
-<p>su 用户名称                     （功能描述：切换用户）</p>
-</li>
-<li>示例  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#su test1</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="userdel-删除用户"><a href="#userdel-删除用户" class="headerlink" title="userdel 删除用户"></a>userdel 删除用户</h3><ul>
-<li><p>基本语法：</p>
+<h4 id="Connector组件"><a href="#Connector组件" class="headerlink" title="Connector组件"></a>Connector组件</h4><p>进入Tomcat的请求可以根据Tomcat的工作模式分为如下两类：</p>
+<ul>
+<li>Tomcat作为应用程序服务器：请求来自于前端的web服务器，这可能是Apache, IIS, Nginx等；</li>
+<li><p>Tomcat作为独立服务器：请求来自于web浏览器；<br>Tomcat应该考虑工作情形并为相应情形下的请求分别定义好需要的连接器才能正确接收来自于客户端的请求。一个引擎可以有一个或多个连接器，以适应多种请求方式。<br>定义连接器可以使用多种属性，有些属性也只适用于某特定的连接器类型。一般说来，常见于server.xml中的连接器类型通常有4种：</p>
 <ol>
-<li>userdel  用户名        （功能描述：删除用户但保存用户主目录）</li>
-<li>userdel -r 用户名        （功能描述：用户和用户主目录，都删除）</li>
+<li>HTTP连接器 </li>
+<li>SSL连接器 </li>
+<li>AJP 1.3连接器</li>
+<li>proxy连接器</li>
 </ol>
 </li>
-<li><p>示例：</p>
-<ol>
-<li><p>删除用户但保存用户主目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#userdel test1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除用户和用户主目录，都删除</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#userdel –r test1</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+</ul>
+<p>server.xml中定义的HTTP连接器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;</span><br><span class="line">maxThreads=&quot;150″ connectionTimeout=&quot;20000″</span><br><span class="line">redirectPort=&quot;8443″/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>定义连接器时可以配置的属性非常多，但通常定义HTTP连接器时必须定义的属性只有“port“，定义AJP连接器时必须定义的属性只有”protocol”，因为默认的协议为HTTP。以下为常用属性的说明：</p>
+<ul>
+<li>address：指定连接器监听的地址，默认为所有地址，即0.0.0.0； 可以自己指定地，如</li>
+<li>maxThreads：支持的最大并发连接数，默认为200；</li>
+<li>port：监听的端口，默认为0；</li>
+<li>protocol：连接器使用的协议，默认为HTTP/1.1，定义AJP协议时通常为AJP/1.3；</li>
+<li>redirectPort：如果某连接器支持的协议是HTTP，当接收客户端发来的HTTPS请求时，则转发至此属性定义的端口；</li>
+<li>connectionTimeout：等待客户端发送请求的超时时间，单位为毫秒，默认为60000，即1分钟；</li>
+<li>enableLookups：是否通过request.getRemoteHost()进行DNS查询以获取客户端的主机名；默认为true； 进行反解的，可以设置为false</li>
+<li>acceptCount：设置等待队列的最大长度；通常在tomcat所有处理线程均处于繁忙状态时，新发来的请求将被放置于等待队列中；<br>下面是一个定义了多个属性的SSL连接器：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=&quot;8443&quot;</span><br><span class="line">maxThreads=&quot;150&quot; minSpareThreads=&quot;25″ maxSpareThreads=&quot;75&quot;</span><br><span class="line">enableLookups=&quot;false&quot; acceptCount=&quot;100&quot; debug=&quot;0&quot; scheme=&quot;https&quot; secure=&quot;true&quot;</span><br><span class="line">clientAuth=&quot;false&quot; sslProtocol=&quot;TLS&quot; /&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="设置test1普通用户具有root权限"><a href="#设置test1普通用户具有root权限" class="headerlink" title="设置test1普通用户具有root权限"></a>设置test1普通用户具有root权限</h3><ul>
-<li><p>修改配置文件</p>
-<p>  修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">##Allow root to run any commands anywhere</span><br><span class="line">root    ALL=(ALL)     ALL</span><br><span class="line">test1   ALL=(ALL)     ALL</span><br></pre></td></tr></table></figure>
-<p> 修改完毕，现在可以用test1帐号登录，然后用命令 su - ，即可获得root权限进行操作。</p>
+<h4 id="Engine组件"><a href="#Engine组件" class="headerlink" title="Engine组件"></a>Engine组件</h4><p>Engine是Servlet处理器的一个实例，即servlet引擎，默认为定义在server.xml中的Catalina。Engine需要defaultHost属性来为其定义一个接收所有发往非明确定义虚拟主机的请求的host组件。如前面示例中定义的：</p>
+<p><code>&lt;Engine name=&quot;Catalina&quot; defaultHost=&quot;localhost&quot;&gt;</code></p>
+<p>常用的属性定义：</p>
+<ul>
+<li><p>defaultHost：Tomcat支持基于FQDN的虚拟主机，这些虚拟主机可以通过在Engine容器中定义多个不同的Host组件来实现；但如果此引擎的连接器收到一个发往非非明确定义虚拟主机的请求时则需要将此请求发往一个默认的虚拟主机进行处理，因此，在Engine中定义的多个虚拟主机的主机名称中至少要有一个跟defaultHost定义的主机名称同名；</p>
 </li>
-<li><p>示例</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[test1@centeros opt]# sudo mkdir module</span><br><span class="line">[root@centeros opt]#chown test1:test1 module/</span><br></pre></td></tr></table></figure>
+<li><p>name：Engine组件的名称，用于日志和错误信息记录时区别不同的引擎；</p>
 </li>
-</ul>
-<h3 id="cat-etc-passwd-查看创建了哪些用户"><a href="#cat-etc-passwd-查看创建了哪些用户" class="headerlink" title="cat  /etc/passwd 查看创建了哪些用户"></a>cat  /etc/passwd 查看创建了哪些用户</h3><ul>
-<li><p>示例</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#cat  /etc/passwd</span><br></pre></td></tr></table></figure>
+<li><p>Engine容器中可以包含Realm、Host、Listener和Valve子容器。</p>
 </li>
 </ul>
-<h3 id="usermod修改用户"><a href="#usermod修改用户" class="headerlink" title="usermod修改用户"></a>usermod修改用户</h3><ul>
-<li><p>基本语法：</p>
-<p> usermod -g 用户组 用户名</p>
-</li>
-<li><p>示例：</p>
-<p> 将用户test1加入dev用户组</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#usermod –g dev test1</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="用户组的操作命令"><a href="#用户组的操作命令" class="headerlink" title="用户组的操作命令"></a>用户组的操作命令</h2><p>&ensp;&ensp;每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux 系统对用户组的规定有所不同，<br>如Linux下的用户属于与它同名的用户组，这个用户组在创建用户时同时创建。<br>用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对/etc/group文件的更新。</p>
-<h3 id="groupadd-新增组"><a href="#groupadd-新增组" class="headerlink" title="groupadd 新增组"></a>groupadd 新增组</h3><ul>
-<li><p>基本语法</p>
-<p>groupadd 组名</p>
-</li>
-<li><p>示例：</p>
-<p>添加一个testgroup组</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#groupadd testgroup</span><br></pre></td></tr></table></figure>
+<h4 id="Host组件"><a href="#Host组件" class="headerlink" title="Host组件"></a>Host组件</h4><p>位于Engine容器中用于接收请求并进行相应处理的主机或虚拟主机，如前面示例中的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Host name=”localhost” appBase=”webapps”</span><br><span class="line">unpackWARs=”true” autoDeploy=”true”</span><br><span class="line">xmlValidation=”false” xmlNamespaceAware=”false”&gt;</span><br><span class="line">&lt;/Host&gt;</span><br></pre></td></tr></table></figure></p>
+<p>常用属性说明：</p>
+<ul>
+<li>appBase：此Host的webapps目录，即存放非归档的web应用程序的目录或归档后的WAR文件的目录路径；可以使用基于$CATALINA_HOME的相对路径；</li>
+<li>autoDeploy：在Tomcat处于运行状态时放置于appBase目录中的应用程序文件是否自动进行deploy；默认为true；</li>
+<li>unpackWars：在启用此webapps时是否对WAR格式的归档文件先进行展开；默认为true；<br>虚拟主机定义示例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;Engine name=”Catalina” defaultHost=”localhost”&gt;</span><br><span class="line">&lt;Host name=”localhost” appBase=”webapps”&gt;</span><br><span class="line">&lt;Context path=”” docBase=”ROOT”/&gt;</span><br><span class="line">&lt;Context path=”/bbs” docBase=”/web/bss” 　#path路径是定义在defaultHost背后的</span><br><span class="line">reloadable=”true” crossContext=”true”/&gt;</span><br><span class="line">&lt;/Host&gt;</span><br><span class="line"></span><br><span class="line">&lt;Host name=”mail.magedu.com” appBase=”/web/mail”&gt;</span><br><span class="line">&lt;Context path=”” docBase=”ROOT”/&gt;</span><br><span class="line">&lt;/Host&gt;</span><br><span class="line">&lt;/Engine&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="groupdel删除组"><a href="#groupdel删除组" class="headerlink" title="groupdel删除组"></a>groupdel删除组</h3><ul>
-<li><p>基本语法：</p>
-<p>groupdel 组名</p>
-</li>
-<li>示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]# groupdel testgroup</span><br></pre></td></tr></table></figure>
+<p>主机别名定义：</p>
+<p>如果一个主机有两个或两个以上的主机名，额外的名称均可以以别名的形式进行定义，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Host name=”www.ttlsa.com” appBase=”webapps” unpackWARs=”true”&gt;</span><br><span class="line">&lt;Alias&gt;feiyu.com&lt;/Alias&gt;</span><br><span class="line">&lt;/Host&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Context组件"><a href="#Context组件" class="headerlink" title="Context组件"></a>Context组件</h4><p>Context在某些意义上类似于apache中的路径别名，一个Context定义用于标识tomcat实例中的一个Web应用程序；如下面的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!– Tomcat Root Context –&gt;</span><br><span class="line">&lt;Context path=”” docBase=”/web/webapps”/&gt;</span><br><span class="line"></span><br><span class="line">&lt;!– buzzin webapp –&gt;</span><br><span class="line">&lt;Context path=”/bbs”</span><br><span class="line">docBase=”/web/threads/bbs”</span><br><span class="line">reloadable=”true”&gt;</span><br><span class="line">&lt;/Context&gt;</span><br><span class="line"></span><br><span class="line">&lt;!– chat server –&gt;</span><br><span class="line">&lt;Context path=”/chat” docBase=”/web/chat”/&gt;</span><br><span class="line"></span><br><span class="line">&lt;!– darian web –&gt;</span><br><span class="line">&lt;Context path=”/darian” docBase=”darian”/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在Tomcat6中，每一个context定义也可以使用一个单独的XML文件进行，其文件的目录为$CATALINA_HOME/conf//。可以用于Context中的XML元素有Loader，Manager，Realm，Resources和WatchedResource。</p>
+<p>常用的属性定义有：</p>
+<ul>
+<li>docBase：相应的Web应用程序的存放位置；也可以使用相对路径，起始路径为此Context所属Host中appBase定义的路径；切记，docBase的路径名不能与相应的Host中appBase中定义的路径名有包含关系，比如，如果appBase为deploy，而docBase绝不能为deploy-bbs类的名字；</li>
+<li>path：相对于Web服务器根路径而言的URI；如果为空“”，则表示为此webapp的根路径；如果context定义在一个单独的xml文件中，此属性不需要定义，有可能是别名；</li>
+<li>reloadable：是否允许重新加载此context相关的Web应用程序的类；默认为false；</li>
+</ul>
+<h4 id="Realm组件"><a href="#Realm组件" class="headerlink" title="Realm组件"></a>Realm组件</h4><p>一个Realm表示一个安全上下文，它是一个授权访问某个给定Context的用户列表和某用户所允许切换的角色相关定义的列表。因此，Realm就像是一个用户和组相关的数据库。定义Realm时惟一必须要提供的属性是classname，它是Realm的多个不同实现，用于表示此Realm认证的用户及角色等认证信息的存放位置。</p>
+<ul>
+<li>JAASRealm：基于Java Authintication and Authorization Service实现用户认证；</li>
+<li>JDBCRealm：通过JDBC访问某关系型数据库表实现用户认证；</li>
+<li>JNDIRealm：基于JNDI使用目录服务实现认证信息的获取；</li>
+<li>MemoryRealm：查找tomcat-user.xml文件实现用户信息的获取；</li>
+<li>UserDatabaseRealm：基于UserDatabase文件(通常是tomcat-user.xml)实现用户认证，它实现是一个完全可更新和持久有效的MemoryRealm，因此能够跟标准的MemoryRealm兼容；它通过JNDI实现；<br>下面是一个常见的使用UserDatabase的配置：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Realm className=”org.apache.catalina.realm.UserDatabaseRealm”</span><br><span class="line">resourceName=”UserDatabase”/&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="groupmod修改组"><a href="#groupmod修改组" class="headerlink" title="groupmod修改组"></a>groupmod修改组</h3><ul>
-<li><p>基本语法：</p>
-<p>groupmod -n 新组名 老组名</p>
-</li>
-<li><p>示例</p>
-<p>修改testgroup组名称为testgroup1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]# groupmod –n testgroup1 testgroup</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="cat-etc-group-查看创建了哪些组"><a href="#cat-etc-group-查看创建了哪些组" class="headerlink" title="cat  /etc/group 查看创建了哪些组"></a>cat  /etc/group 查看创建了哪些组</h3><ul>
-<li>示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]#cat  /etc/group</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><ul>
-<li>示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros opt]# groupadd dev</span><br><span class="line">[root@centeros opt]# groupmod -n device dev</span><br><span class="line">[root@centeros opt]# usermod -g device test1</span><br></pre></td></tr></table></figure></li>
-</ul>
+<p>下面是一个使用JDBC方式获取用户认证信息的配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;Realm className=”org.apache.catalina.realm.JDBCRealm” debug=”99″</span><br><span class="line">driverName=”org.gjt.mm.mysql.Driver”</span><br><span class="line">connectionURL=”jdbc:mysql://localhost/authority”</span><br><span class="line">connectionName=”test” connectionPassword=”test”</span><br><span class="line">userTable=”users” userNameCol=”user_name”</span><br><span class="line">userCredCol=”user_pass”</span><br><span class="line">userRoleTable=”user_roles” roleNameCol=”role_name” /&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Valve组件"><a href="#Valve组件" class="headerlink" title="Valve组件"></a>Valve组件</h4><p>Valve类似于过滤器，它可以工作于Engine和Host/Context之间、Host和Context之间以及Context和Web应用程序的某资源之间。一个容器内可以建立多个Valve，而且Valve定义的次序也决定了它们生效的次序。</p>
 
 					
 				</div>
@@ -302,18 +301,12 @@
 		<ul class="am-pagination">
     
     	<li class="am-pagination-prev">
-   		<a class="pull-left" href="/2018/09/19/认识hadoop/" title="认识hadoop">
+   		<a class="pull-left" href="/2017/06/20/linux用户和用户组操作命令/" title="linux用户和用户组操作命令">
       		&laquo; 上一篇
 		</a>
 		</li>
 	
 	
-		<li class="am-pagination-next">
-		<a class="pull-right" href="/2017/03/22/浅析Tomcat原理及请求过程/" title="浅析Tomcat原理及请求过程">
-			下一篇 &raquo;
-		</a>
-		</li>
-	 
  </ul>
         
 
@@ -438,7 +431,7 @@
 				
 				
 				<!--toc(post.content)-->
-				<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用户的操作命令"><span class="post-toc-text">用户的操作命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#useradd-添加新用户"><span class="post-toc-text">useradd 添加新用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#passwd-设置用户密码"><span class="post-toc-text">passwd 设置用户密码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#id-判断用户是否存在"><span class="post-toc-text">id 判断用户是否存在</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#su-切换用户"><span class="post-toc-text">su 切换用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#userdel-删除用户"><span class="post-toc-text">userdel 删除用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#设置test1普通用户具有root权限"><span class="post-toc-text">设置test1普通用户具有root权限</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cat-etc-passwd-查看创建了哪些用户"><span class="post-toc-text">cat  /etc/passwd 查看创建了哪些用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#usermod修改用户"><span class="post-toc-text">usermod修改用户</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用户组的操作命令"><span class="post-toc-text">用户组的操作命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#groupadd-新增组"><span class="post-toc-text">groupadd 新增组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#groupdel删除组"><span class="post-toc-text">groupdel删除组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#groupmod修改组"><span class="post-toc-text">groupmod修改组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cat-etc-group-查看创建了哪些组"><span class="post-toc-text">cat  /etc/group 查看创建了哪些组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用示例"><span class="post-toc-text">使用示例</span></a></li></ol></li></ol>
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概述"><span class="post-toc-text">概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tomcat目录："><span class="post-toc-text">Tomcat目录：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tomcat配置文件："><span class="post-toc-text">Tomcat配置文件：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tomcat架构及常用的组件："><span class="post-toc-text">Tomcat架构及常用的组件：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Server组件"><span class="post-toc-text">Server组件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Service组件"><span class="post-toc-text">Service组件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Connector组件"><span class="post-toc-text">Connector组件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Engine组件"><span class="post-toc-text">Engine组件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Host组件"><span class="post-toc-text">Host组件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Context组件"><span class="post-toc-text">Context组件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Realm组件"><span class="post-toc-text">Realm组件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Valve组件"><span class="post-toc-text">Valve组件</span></a></li></ol></li></ol></li></ol>
 			</nav>
 			<div class="post-toc-bar"><div>
 		</div></div></aside>
