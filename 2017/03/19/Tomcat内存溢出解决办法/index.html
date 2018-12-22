@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>文章归档</title>
+	<title>Tomcat内存溢出解决办法</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,9 +54,8 @@
 		
 		
 			
-			<!-- && is_current('archives/index.html') -->
-			<p class="page-name">文章归档</p>
-		
+			<p class="page-name">当前文章&nbsp;:&nbsp;《Tomcat内存溢出解决办法》</p>
+			
 		
 	
 	
@@ -148,131 +147,232 @@
 		<!-- content srart -->
 <div class="am-g am-g-fixed blog-fixed blog-content">
 	<div class="am-u-md-8 am-u-sm-12">
-		<div class="archive">
 
-			<div class="blog-text-center">
-				
-					<i class="fa fa-book">总计5篇文章</i>
-				
-			</div>  
+		<article class="am-article blog-article-p">
 
-			
+			<div class="am-article-hd">
+				
 
-							
-				
-				
-				
+
+				<h1 class="am-article-title blog-text-center">
 					
+					
+	
+		<a href="/2017/03/19/Tomcat内存溢出解决办法/" itemprop="url">		
+			Tomcat内存溢出解决办法		
+		</a>
+	
 
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2017/03/19/Tomcat内存溢出解决办法/" itemprop="url">
+	<time datetime="2017-03-19T12:49:43.000Z" itemprop="datePublished">
+  		2017-03-19
+  </time>
+</a>    
+&nbsp;
+					</span>
 					
-					<!--<a href="/archives/2018" class="archive-year">2018</a>-->
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2018/09">
-							2018-09
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/09/19/认识hadoop/" itemprop="url">认识hadoop</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/09/19/认识hadoop/" itemprop="url">09-19</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-					
+					<span>						
 						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#tomcat" title="tomcat" rel="3">tomcat</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
 					
+						<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>使用Java程序从数据库中查询大量的数据时出现异常:<br><code>java.lang.OutOfMemoryError: Java heap space</code><br>在JVM中如果98％的时间是用于GC且可用的 Heap size 不足2％的时候将抛出此异常信息。<br>JVM堆的设置是指java程序运行过程中JVM可以调配使用的内存空间的设置.JVM在启动的时候会自动设置Heap size的值，<br>其初始空间(即-Xms)是物理内存的1/64，最大空间(-Xmx)是物理内存的1/4。可以利用JVM提供的-Xmn -Xms -Xmx等选项可进行设置。</p>
+<h2 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h2><p>在myeclipse中设置TOMCAT的内存大小</p>
+<p>Tomcat是目前应用十分广泛的一个Java servlet container与web服务器，<br>但java.lang.OutOfMemoryError与java.lang.OutOfMemoryError:<br>PermGen space的异常相信真正用过tomcat的人都遇到过（用户量大，应用使用频繁等），<br>这个异常和JVM默认划分的内存上限是128M有关，如果你的业务足够繁忙，128M是远远不够的，<br>所以你可以给JVM分配上1G甚至更多，这样就可以避免内存溢出。</p>
+<p>分配方法：</p>
+<ul>
+<li><p>linux下<br>   编辑tomcat的catalina.sh文件，在第一行的后面增加一句：<br><code>JAVA_OPTS=&#39;-server -Xms256m -Xmx512m -XX:PermSize=128M -XX:MaxPermSize=256M&#39;</code><br>注意：单引号不能少，-server表示以server模式运行(运行效率比默认的client高很多，自己去测试)，-Xms256m是最小内存，<br>-Xmx512m是最大内存，其中的256与512可根据你自己的内存做相应调整，PermSize/MaxPermSize最小/最大堆大小.<br>一般报内存不足时,都是说这个太小,堆空间剩余小于5%就会警告,建议把这个稍微设大一点,不过要视自己机器内存大小来设置。</p>
+</li>
+<li><p>windows下</p>
+<p>   编辑tomcat的catalina.bat文件，在第一行的后面增加一句：<br><code>set JAVA_OPTS=-server -Xms256m -Xmx512m -XX:PermSize=128M -XX:MaxPermSize=256M</code><br>注意：没有单引号</p>
+</li>
+</ul>
+<p>如果windows下tomcat被作为一种服务安装了，可通过tomcat monitor的java页进行配置</p>
+<p>注：Java Options中每一行的最后不能有空格。<br>上面配置的catalina.bat中-server选项对应：Java Virtual Matchine<br>D:\Java\jdk1.8.0_45\jre\bin\server\jvm.dll</p>
+<p>这里的jvm.dll不是jre\bin\client\jvm.dll而是\jre\bin\server\jvm.dll(要安装JDK不是JRE)<br>如果你不想提高tomcat的执行效率，你可以按默认的配置</p>
+<p>说明一个各个配置参数</p>
+<p>提示中给出了设置的参数：</p>
+<p><code>-vmargs -Xms128M -Xmx512M -XX:PermSize=64M -XX:MaxPermSize=128M</code> </p>
+<p>参数中-vmargs的意思是设置JVM参数，所以后面的其实都是JVM的参数了，首先了解一下JVM内存管理的机制，然后再解释每个参数代表的含义。</p>
+<p>◆堆(Heap)和非堆(Non-heap)内存</p>
+<p>按照官方的说法：Java 虚拟机具有一个堆，堆是运行时数据区域，所有类实例和数组的内存均从此处分配。堆是在 Java 虚拟机启动时创建的。在JVM中堆之外的内存称为非堆内存(Non-heap memory)。可以看出JVM主要管理两种类型的内存：堆和非堆。简单来说堆就是Java代码可及的内存，是留给开发人员使用的；非堆就是JVM留给自己用的，所以方法区、JVM内部处理或优化所需的内存(如JIT编译后的代码缓存)、每个类结构(如运行时常数池、字段和方法数据)以及方法和构造方法的代码都在非堆内存中。</p>
+<p>◆堆内存分配</p>
+<p>JVM初始分配的内存由-Xms指定，默认是物理内存的1/64；JVM最大分配的内存由-Xmx指定，默认是物理内存的1/4。默认空余堆内存小于40%时，JVM就会增大堆直到-Xmx的最大限制；空余堆内存大于70%时，JVM会减少堆直到-Xms的最小限制。因此服务器一般设置-Xms、-Xmx相等以避免在每次GC 后调整堆的大小。</p>
+<p>◆非堆内存分配</p>
+<p>JVM使用-XX:PermSize设置非堆内存初始值，默认是物理内存的1/64；由XX:MaxPermSize设置最大非堆内存的大小，默认是物理内存的1/4。</p>
+<p>◆JVM内存限制(最大值)</p>
+<p>首先JVM内存限制于实际的最大物理内存，假设物理内存无限大的话，JVM内存的最大值跟操作系统有很大的关系。简单的说就32位处理器虽然可控内存空间有4GB,但是具体的操作系统会给一个限制，这个限制一般是2GB-3GB（一般来说Windows系统下为1.5G-2G，Linux系统下为2G-3G），而64bit以上的处理器就不会有限制了。</p>
+<ol start="2">
+<li>为什么有的机器-Xmx和-XX:MaxPermSize都设置为512M之后Eclipse可以启动，而有些机器无法启动？</li>
+</ol>
+<p>JVM内存包含两种：堆内存和非堆内存，另外JVM最大内存首先取决于实际的物理内存和操作系统。所以说设置VM参数导致程序无法启动主要有以下几种原因：</p>
+<ul>
+<li><p>参数中-Xms的值大于-Xmx，或者-XX:PermSize的值大于-XX:MaxPermSize；</p>
+</li>
+<li><p>-Xmx的值和-XX:MaxPermSize的总和超过了JVM内存的最大限制，比如当前操作系统最大内存限制，或者实际的物理内存等等。说到实际物理内存这里需要说明一点的是，如果你的内存是1024MB，但实际系统中用到的并不可能是1024MB，因为有一部分被硬件占用了。</p>
+</li>
+</ul>
 
 					
-					<!--<a href="/archives/2017" class="archive-year">2017</a>-->
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2017/06">
-							2017-06
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2017/06/20/linux用户和用户组操作命令/" itemprop="url">linux用户和用户组操作命令</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2017/06/20/linux用户和用户组操作命令/" itemprop="url">06-20</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2017/03">
-							2017-03
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2017/03/24/优化Tomcat配置/" itemprop="url">优化Tomcat配置</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2017/03/24/优化Tomcat配置/" itemprop="url">03-24</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2017/03/22/浅析Tomcat原理及请求过程/" itemprop="url">浅析Tomcat原理及请求过程</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2017/03/22/浅析Tomcat原理及请求过程/" itemprop="url">03-22</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2017/03/19/Tomcat内存溢出解决办法/" itemprop="url">Tomcat内存溢出解决办法</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2017/03/19/Tomcat内存溢出解决办法/" itemprop="url">03-19</a>
-					</div>
-				</div>		        							
-			
-				
-			    
-		</div>
-	</div>
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2017/03/22/浅析Tomcat原理及请求过程/" title="浅析Tomcat原理及请求过程">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+ </ul>
+        
+
+		<div class="theme-annie-comment-button-container">
+	<button id="annie-comment-button" class="theme-annie-comment-button" onclick="Annie_Comment()">
+		加载评论
+		<!--加载评论-->
+	</button>
 </div>
 
+<div id="annie-comment-container" class="theme-annie-comment-main-container">
+
+	
+		
+			<!-- comment gitalk -->
+			<!-- show gitalk comment -->
+
+  <div id="gitalk-container"></div>
+
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+	//thanks O-R
+	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+	//去除尾部匹配正则数组的字符串  
+	//remove redundant characters
+	String.prototype.trimEnd = function(regStr) {
+		var result = this;
+		if(regStr == undefined || regStr == null || regStr == "") {
+			return result;
+		}
+		var array = regStr.split(',');
+
+		if(array.length > 0) {
+
+			var c = array.shift();
+			var str = this;
+			var i = str.length;
+			var rg = new RegExp(c);
+			var matchArr = str.match(rg);
+
+			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+				matchStr = matchStr + '$';
+				result = str.replace(new RegExp(matchStr), "");
+			}
+
+			if(array.length > 0) {
+				return result.trimEnd(array.join())
+			} else {
+				return result;
+			}
+		}
+	};
+
+	//create gitalk
+	var gitalk = new Gitalk({
+		clientID: 'd4992264b2fe52074ee6',
+		clientSecret: 'fa075661aa97dfea6d8d716c1d8049cf469c77ad',
+		//id: window.location.pathname,
+		// id: (window.location.pathname).split("/").pop().substring(0, 49),
+		id: md5(location.href.trimEnd('#.*$,\\?.*$,index.html$')),
+		repo: 'blog-comments',
+		owner: 'LChenYang',
+		admin: 'LChenYang',
+		distractionFreeMode: 'true',
+	})
+	gitalk.render('gitalk-container');
+</script>
+		
+	
+
+</div>
+
+<script type="text/javascript">
+	/* Show Comment */
+	var Annie_Comment = function() {
+		function Show_Hidden(obj) {
+			obj.style.display = 'block';
+		}
+		
+		//var obutton = $('#annie-comment-button');
+		//var obutton = $('#annie-comment-container');
+		var obutton = document.getElementById("annie-comment-button" || "0");
+		var odiv = document.getElementById("annie-comment-container");
+		if( 'obutton' ) {
+			obutton.onclick = function() {
+				Show_Hidden(odiv);
+				$("#annie-comment-button").css("display", 'none');
+				return false;
+			}
+		}
+	};
+
+	(function Annie_Init() {
+		Annie_Comment();
+	})();
+</script>
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题"><span class="post-toc-text">问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决办法："><span class="post-toc-text">解决办法：</span></a></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
 		</div>
 		</main>
 		
@@ -328,6 +428,11 @@
 	}
 </style>
 
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
 
 
 
@@ -669,6 +774,8 @@
 
 
 
+
+	<script type="text/javascript" src="/js/toc.js"></script>
 
 
 <script type="text/javascript" src="/js/main.js"></script>
