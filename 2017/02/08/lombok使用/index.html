@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>文章归档</title>
+	<title>lombok使用</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,9 +54,8 @@
 		
 		
 			
-			<!-- && is_current('archives/index.html') -->
-			<p class="page-name">文章归档</p>
-		
+			<p class="page-name">当前文章&nbsp;:&nbsp;《lombok使用》</p>
+			
 		
 	
 	
@@ -148,190 +147,226 @@
 		<!-- content srart -->
 <div class="am-g am-g-fixed blog-fixed blog-content">
 	<div class="am-u-md-8 am-u-sm-12">
-		<div class="archive">
 
-			<div class="blog-text-center">
-				
-					<i class="fa fa-book">总计8篇文章</i>
-				
-			</div>  
+		<article class="am-article blog-article-p">
 
-			
+			<div class="am-article-hd">
+				
 
-							
-				
-				
-				
+
+				<h1 class="am-article-title blog-text-center">
 					
+					
+	
+		<a href="/2017/02/08/lombok使用/" itemprop="url">		
+			lombok使用		
+		</a>
+	
 
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2017/02/08/lombok使用/" itemprop="url">
+	<time datetime="2017-02-08T07:30:27.000Z" itemprop="datePublished">
+  		2017-02-08
+  </time>
+</a>    
+&nbsp;
+					</span>
 					
-					<!--<a href="/archives/2018" class="archive-year">2018</a>-->
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2018/09">
-							2018-09
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/09/19/认识hadoop/" itemprop="url">认识hadoop</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/09/19/认识hadoop/" itemprop="url">09-19</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2018/08">
-							2018-08
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/08/09/视频播放插件JWPlayer的使用/" itemprop="url">视频播放插件JWPlayer的使用</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/08/09/视频播放插件JWPlayer的使用/" itemprop="url">08-09</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-					
+					<span>						
 						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#Java" title="Java" rel="1">Java</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
 					
+						<h2 id="Lombok简介"><a href="#Lombok简介" class="headerlink" title="Lombok简介"></a>Lombok简介</h2><p>&ensp;&ensp;Lombok是一种自动接通你的编辑器和构建工具的一个Java库。不用再一次写额外的getter或者equals方法。简单来说lombok其实就是帮助我们编写getter或者equals方法的一个“工具”。</p>
+<h3 id="为什么使用Lombok"><a href="#为什么使用Lombok" class="headerlink" title="为什么使用Lombok"></a>为什么使用Lombok</h3><p>&ensp;&ensp;简化冗余的JavaBean代码，大大提高JavaBean中方法的执行效率；</p>
+<h3 id="Lombok实现原理"><a href="#Lombok实现原理" class="headerlink" title="Lombok实现原理"></a>Lombok实现原理</h3><p>&ensp;&ensp;Lombok实现了JSR 269 API规范，javac在Java6开始支持这一规范，<br>只要程序实现了该API，就能在javac运行的时候得到调用，那么Lombok在编译时使用的就是javac。<br>项目的源代码文件，在经过编译处理以后，lombok会使用自己的抽象语法树去进行注解的匹配，如果在项目中的某一个类中使用了lombok中的注解，<br>那么注解编译器就会自动去匹配项目中的注解对应到在lombok语法树中的注解文件，并经过自动编译匹配来生成对应类中的getter或者setter方法，达到简化代码的目的。</p>
+<h3 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h3><ul>
+<li>@Data注解：在JavaBean或类JavaBean中使用，这个注解包含范围最广，它包含getter、setter、NoArgsConstructor注解，即当使用当前注解时，会自 动生成包含的所有方法；</li>
+<li>@getter注解：在JavaBean或类JavaBean中使用，使用此注解会生成对应的getter方法；</li>
+<li>@setter注解：在JavaBean或类JavaBean中使用，使用此注解会生成对应的setter方法；</li>
+<li>@NoArgsConstructor注解：在JavaBean或类JavaBean中使用，使用此注解会生成对应的无参构造方法；</li>
+<li>@AllArgsConstructor注解：在JavaBean或类JavaBean中使用，使用此注解会生成对应的有参构造方法；</li>
+<li>@ToString注解：在JavaBean或类JavaBean中使用，使用此注解会自动重写对应的toStirng方法；</li>
+<li>@EqualsAndHashCode注解：在JavaBean或类JavaBean中使用，使用此注解会自动重写对应的equals方法和hashCode方法；</li>
+<li>@Slf4j：在需要打印日志的类中使用，当项目中使用了slf4j打印日志框架时使用该注解，会简化日志的打印流程，只需调用info方法即可；</li>
+<li>@Log4j：在需要打印日志的类中使用，当项目中使用了log4j打印日志框架时使用该注解，会简化日志的打印流程，只需调用info方法即可；<br>在使用以上注解需要处理参数时，处理方法如下（以@ToString注解为例，其他注解同@ToString注解）：</li>
+<li>@ToString(exclude=”column”)<br>意义：排除column列所对应的元素，即在生成toString方法时不包含column参数；</li>
+<li>@ToString(exclude={“column1”,”column2”})<br>意义：排除多个column列所对应的元素，其中间用英文状态下的逗号进行分割，即在生成toString方法时不包含多个column参数；</li>
+<li>@ToString(of=”column”)<br>意义：只生成包含column列所对应的元素的参数的toString方法，即在生成toString方法时只包含column参数；</li>
+<li>@ToString(of={“column1”,”column2”})<br>意义：只生成包含多个column列所对应的元素的参数的toString方法，其中间用英文状态下的逗号进行分割，即在生成toString方法时只包含多个column参数；</li>
+</ul>
+<h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><ol>
+<li>下载lombok.jar至eclipse安装路径与eclipse.ini同级</li>
+<li>在当前目录打开cmd命令窗口  输入命令java -jar lombok.jar 一直点击确定或下一步，查看是否安装成功，打开eclipse.ini文件查看是否有-javaagent:<em>:\</em>\lombok.jar </li>
+<li><p>在项目pom.xml文件中加入lombok依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.project.lombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
 
 					
-					<!--<a href="/archives/2017" class="archive-year">2017</a>-->
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2017/06">
-							2017-06
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2017/06/20/linux用户和用户组操作命令/" itemprop="url">linux用户和用户组操作命令</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2017/06/20/linux用户和用户组操作命令/" itemprop="url">06-20</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2017/03">
-							2017-03
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2017/03/24/优化Tomcat配置/" itemprop="url">优化Tomcat配置</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2017/03/24/优化Tomcat配置/" itemprop="url">03-24</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2017/03/22/浅析Tomcat原理及请求过程/" itemprop="url">浅析Tomcat原理及请求过程</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2017/03/22/浅析Tomcat原理及请求过程/" itemprop="url">03-22</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2017/03/19/Tomcat内存溢出解决办法/" itemprop="url">Tomcat内存溢出解决办法</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2017/03/19/Tomcat内存溢出解决办法/" itemprop="url">03-19</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2017/02">
-							2017-02
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2017/02/08/lombok使用/" itemprop="url">lombok使用</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2017/02/08/lombok使用/" itemprop="url">02-08</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2017/02/03/CSS中hover失效的几个原因/" itemprop="url">CSS中hover失效的几个原因</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2017/02/03/CSS中hover失效的几个原因/" itemprop="url">02-03</a>
-					</div>
-				</div>		        							
-			
-				
-			    
-		</div>
-	</div>
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2017/03/19/Tomcat内存溢出解决办法/" title="Tomcat内存溢出解决办法">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2017/02/03/CSS中hover失效的几个原因/" title="CSS中hover失效的几个原因">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<div class="theme-annie-comment-button-container">
+	<button id="annie-comment-button" class="theme-annie-comment-button" onclick="Annie_Comment()">
+		加载评论
+		<!--加载评论-->
+	</button>
 </div>
 
+<div id="annie-comment-container" class="theme-annie-comment-main-container">
+
+	
+		
+			<!-- comment gitalk -->
+			<!-- show gitalk comment -->
+
+  <div id="gitalk-container"></div>
+
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+	//thanks O-R
+	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+	//去除尾部匹配正则数组的字符串  
+	//remove redundant characters
+	String.prototype.trimEnd = function(regStr) {
+		var result = this;
+		if(regStr == undefined || regStr == null || regStr == "") {
+			return result;
+		}
+		var array = regStr.split(',');
+
+		if(array.length > 0) {
+
+			var c = array.shift();
+			var str = this;
+			var i = str.length;
+			var rg = new RegExp(c);
+			var matchArr = str.match(rg);
+
+			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+				matchStr = matchStr + '$';
+				result = str.replace(new RegExp(matchStr), "");
+			}
+
+			if(array.length > 0) {
+				return result.trimEnd(array.join())
+			} else {
+				return result;
+			}
+		}
+	};
+
+	//create gitalk
+	var gitalk = new Gitalk({
+		clientID: 'd4992264b2fe52074ee6',
+		clientSecret: 'fa075661aa97dfea6d8d716c1d8049cf469c77ad',
+		//id: window.location.pathname,
+		// id: (window.location.pathname).split("/").pop().substring(0, 49),
+		id: md5(location.href.trimEnd('#.*$,\\?.*$,index.html$')),
+		repo: 'blog-comments',
+		owner: 'LChenYang',
+		admin: 'LChenYang',
+		distractionFreeMode: 'true',
+	})
+	gitalk.render('gitalk-container');
+</script>
+		
+	
+
+</div>
+
+<script type="text/javascript">
+	/* Show Comment */
+	var Annie_Comment = function() {
+		function Show_Hidden(obj) {
+			obj.style.display = 'block';
+		}
+		
+		//var obutton = $('#annie-comment-button');
+		//var obutton = $('#annie-comment-container');
+		var obutton = document.getElementById("annie-comment-button" || "0");
+		var odiv = document.getElementById("annie-comment-container");
+		if( 'obutton' ) {
+			obutton.onclick = function() {
+				Show_Hidden(odiv);
+				$("#annie-comment-button").css("display", 'none');
+				return false;
+			}
+		}
+	};
+
+	(function Annie_Init() {
+		Annie_Comment();
+	})();
+</script>
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Lombok简介"><span class="post-toc-text">Lombok简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么使用Lombok"><span class="post-toc-text">为什么使用Lombok</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Lombok实现原理"><span class="post-toc-text">Lombok实现原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常用注解"><span class="post-toc-text">常用注解</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装配置"><span class="post-toc-text">安装配置</span></a></li></ol></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
 		</div>
 		</main>
 		
@@ -387,6 +422,11 @@
 	}
 </style>
 
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
 
 
 
@@ -728,6 +768,8 @@
 
 
 
+
+	<script type="text/javascript" src="/js/toc.js"></script>
 
 
 <script type="text/javascript" src="/js/main.js"></script>
