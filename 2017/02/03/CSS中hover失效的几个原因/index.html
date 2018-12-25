@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>优化Tomcat配置</title>
+	<title>CSS中hover失效的几个原因</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,7 +54,7 @@
 		
 		
 			
-			<p class="page-name">当前文章&nbsp;:&nbsp;《优化Tomcat配置》</p>
+			<p class="page-name">当前文章&nbsp;:&nbsp;《CSS中hover失效的几个原因》</p>
 			
 		
 	
@@ -158,8 +158,8 @@
 					
 					
 	
-		<a href="/2017/03/24/优化Tomcat配置/" itemprop="url">		
-			优化Tomcat配置		
+		<a href="/2017/02/03/CSS中hover失效的几个原因/" itemprop="url">		
+			CSS中hover失效的几个原因		
 		</a>
 	
 
@@ -168,9 +168,9 @@
 				<p class="am-article-meta blog-text-center">
 					<span>
 						<i class="fa fa-clock-o"></i> 
-						<a href="/2017/03/24/优化Tomcat配置/" itemprop="url">
-	<time datetime="2017-03-24T13:49:43.000Z" itemprop="datePublished">
-  		2017-03-24
+						<a href="/2017/02/03/CSS中hover失效的几个原因/" itemprop="url">
+	<time datetime="2017-02-03T03:44:27.000Z" itemprop="datePublished">
+  		2017-02-03
   </time>
 </a>    
 &nbsp;
@@ -180,7 +180,7 @@
 						
 							<i class="fa fa-tags"></i>
 							
-								<a href="#tomcat" title="tomcat" rel="3">tomcat</a>&nbsp;
+								<a href="#css" title="css" rel="1">css</a>&nbsp;
 													 											
 						
 					</span>
@@ -190,65 +190,9 @@
 			<div class="am-article-bd">
 				<div class="content" id="post-content">
 					
-						<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>&emsp;&emsp;Tomcat有很多方面，今天主要从内存、并发、缓存三个方面介绍优化方法。</p>
-<h3 id="Tomcat内存优化"><a href="#Tomcat内存优化" class="headerlink" title="Tomcat内存优化"></a>Tomcat内存优化</h3><p>&emsp;&emsp;Tomcat内存优化主要是对 tomcat 启动参数优化，我们可以在 tomcat 的启动脚本 catalina.sh 中设置 java_OPTS 参数。</p>
-<ul>
-<li><p>JAVA_OPTS参数说明</p>
-<pre><code>-server 启用jdk 的 server 版；S
-
--Xms java虚拟机初始化时的最小内存；
-
--Xmx java虚拟机可使用的最大内存；
-
--XX: PermSize 内存永久保留区域
-
--XX:MaxPermSize 内存最大永久保留区域
-</code></pre></li>
-<li><p>服务器参数配置</p>
-</li>
-</ul>
-<p>现公司服务器内存一般都可以加到最大2G ，所以可以采取以下配置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS=’-Xms1024m -Xmx2048m -XX: PermSize=256M -XX:MaxNewSize=256m -XX:MaxPermSize=256m’</span><br></pre></td></tr></table></figure>
-<p>配置完成后可重启Tomcat ，通过以下命令进行查看配置是否生效：</p>
-<p>首先查看Tomcat 进程号：<br> <code>sudo lsof -i:9027</code><br>可以看到Tomcat 进程号是 12222 。</p>
-<p>查看是否配置生效：<br> <code>sudo jmap – heap 12222</code><br>可以看到MaxHeapSize 等参数已经生效。</p>
-<h3 id="Tomcat并发优化"><a href="#Tomcat并发优化" class="headerlink" title="Tomcat并发优化"></a>Tomcat并发优化</h3><ul>
-<li>Tomcat连接相关参数</li>
-</ul>
-<p>在Tomcat 配置文件 server.xml 中的配置</p>
-<p><img src="/2017/03/24/优化Tomcat配置/1.jpg" alt="配置"></p>
-<ul>
-<li><p>调整连接器connector的并发处理能力</p>
-<ul>
-<li><p>参数说明</p>
-<p>  maxThreads 客户请求最大线程数</p>
-<p>  minSpareThreads Tomcat初始化时创建的 socket 线程数</p>
-<p>  maxSpareThreads Tomcat连接器的最大空闲 socket 线程数</p>
-<p>  enableLookups 若设为true, 则支持域名解析，可把 ip 地址解析为主机名</p>
-<p>  redirectPort 在需要基于安全通道的场合，把客户请求转发到基于SSL 的 redirectPort 端口</p>
-<p>  acceptAccount 监听端口队列最大数，满了之后客户请求会被拒绝（不能小于maxSpareThreads ）</p>
-<p>  connectionTimeout 连接超时</p>
-<p>  minProcessors 服务器创建时的最小处理线程数</p>
-<p>  maxProcessors 服务器同时最大处理线程数</p>
-<p>  URIEncoding URL统一编码</p>
-</li>
-<li><p>Tomcat中的配置示例</p>
-<p> <img src="/2017/03/24/优化Tomcat配置/2.jpg" alt="配置"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Tomcat缓存优化"><a href="#Tomcat缓存优化" class="headerlink" title="Tomcat缓存优化"></a>Tomcat缓存优化</h3><ul>
-<li><p>参数说明</p>
-<p>  c ompression 打开压缩功能</p>
-<p>  compressionMinSize 启用压缩的输出内容大小，这里面默认为2KB</p>
-<p>  compressableMimeType 压缩类型</p>
-<p>  connectionTimeout 定义建立客户连接超时的时间. 如果为 -1, 表示不限制建立客户连接的时间</p>
-</li>
-<li><p>Tomcat中的配置示例</p>
-</li>
-</ul>
-<p><img src="/2017/03/24/优化Tomcat配置/3.jpg" alt="配置"></p>
+						<h2 id="选择器的顺序"><a href="#选择器的顺序" class="headerlink" title="选择器的顺序"></a>选择器的顺序</h2><p>&ensp;&ensp;:hover需要置于:visited（为已访问的链接设置样式） 、 :link（为未访问的链接设置样式）、:active（为未活动的链接设置样式）选择器之后才生效。</p>
+<h2 id="在-hover前加空格"><a href="#在-hover前加空格" class="headerlink" title="在:hover前加空格"></a>在:hover前加空格</h2><p>  <code>.b :hover {background: #da56d0;}</code></p>
+<h2 id="只能操作子元素和其兄弟元素"><a href="#只能操作子元素和其兄弟元素" class="headerlink" title="只能操作子元素和其兄弟元素"></a>只能操作子元素和其兄弟元素</h2><p>   例：<br>  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"one"</span>&gt;</span>      </span><br><span class="line">         <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"two"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">div</span>&gt;</span> </span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"one2"</span>&gt;</span><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">     有效： .one:hover .two &#123;background: #da56d0;&#125; </span><br><span class="line">     无效： .one:hover .one2 &#123;background: #da56d0;&#125;</span><br></pre></td></tr></table></figure></p>
 
 					
 				</div>
@@ -258,18 +202,12 @@
 		<ul class="am-pagination">
     
     	<li class="am-pagination-prev">
-   		<a class="pull-left" href="/2017/06/20/linux用户和用户组操作命令/" title="linux用户和用户组操作命令">
+   		<a class="pull-left" href="/2017/03/19/Tomcat内存溢出解决办法/" title="Tomcat内存溢出解决办法">
       		&laquo; 上一篇
 		</a>
 		</li>
 	
 	
-		<li class="am-pagination-next">
-		<a class="pull-right" href="/2017/03/22/浅析Tomcat原理及请求过程/" title="浅析Tomcat原理及请求过程">
-			下一篇 &raquo;
-		</a>
-		</li>
-	 
  </ul>
         
 
@@ -394,7 +332,7 @@
 				
 				
 				<!--toc(post.content)-->
-				<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概述"><span class="post-toc-text">概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tomcat内存优化"><span class="post-toc-text">Tomcat内存优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tomcat并发优化"><span class="post-toc-text">Tomcat并发优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tomcat缓存优化"><span class="post-toc-text">Tomcat缓存优化</span></a></li></ol></li></ol>
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#选择器的顺序"><span class="post-toc-text">选择器的顺序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在-hover前加空格"><span class="post-toc-text">在:hover前加空格</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#只能操作子元素和其兄弟元素"><span class="post-toc-text">只能操作子元素和其兄弟元素</span></a></li></ol>
 			</nav>
 			<div class="post-toc-bar"><div>
 		</div></div></aside>
