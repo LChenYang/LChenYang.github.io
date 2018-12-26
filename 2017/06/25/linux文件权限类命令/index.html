@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>文章归档: 2018</title>
+	<title>linux文件权限类命令</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,9 +54,8 @@
 		
 		
 			
-			<!-- && is_current('archives/index.html') -->
-			<p class="page-name">文章归档</p>
-		
+			<p class="page-name">当前文章&nbsp;:&nbsp;《linux文件权限类命令》</p>
+			
 		
 	
 	
@@ -148,72 +147,238 @@
 		<!-- content srart -->
 <div class="am-g am-g-fixed blog-fixed blog-content">
 	<div class="am-u-md-8 am-u-sm-12">
-		<div class="archive">
 
-			<div class="blog-text-center">
-				
-					<i class="fa fa-book">总计9篇文章</i>
-				
-			</div>  
+		<article class="am-article blog-article-p">
 
-			
+			<div class="am-article-hd">
+				
 
-							
-				
-				
-				
+
+				<h1 class="am-article-title blog-text-center">
 					
+					
+	
+		<a href="/2017/06/25/linux文件权限类命令/" itemprop="url">		
+			linux文件权限类命令		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2017/06/25/linux文件权限类命令/" itemprop="url">
+	<time datetime="2017-06-25T12:57:20.000Z" itemprop="datePublished">
+  		2017-06-25
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#linux" title="linux" rel="2">linux</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h3 id="chmod改变权限"><a href="#chmod改变权限" class="headerlink" title="chmod改变权限"></a>chmod改变权限</h3><ol>
+<li><p>基本语法：</p>
+<p><code>chmod  [{ugoa}{+-=}{rwx}] [文件或目录] [mode=421 ]  [文件或目录]</code></p>
+</li>
+<li><p>功能描述</p>
+<ul>
+<li>改变文件或者目录权限</li>
+<li>文件: r-查看；w-修改；x-执行文件</li>
+<li>目录: r-列出目录内容；w-在目录中创建和删除；x-进入目录</li>
+<li>删除一个文件的前提条件:该文件所在的目录有写权限，你才能删除该文件。</li>
+</ul>
+</li>
+<li><p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros test1]# chmod u+x test1.java</span><br><span class="line">[root@centeros test1]# chmod g+x test1.java</span><br><span class="line">[root@centeros test1]# chmod o+x test1.java</span><br><span class="line">[root@centeros test1]# chmod 777 test1.java</span><br><span class="line">[root@centeros test1]#chmod  -R 777  testdir</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="chown改变所有者"><a href="#chown改变所有者" class="headerlink" title="chown改变所有者"></a>chown改变所有者</h3><ol>
+<li><p>基本语法：</p>
+<p><code>chown [最终用户] [文件或目录]（功能描述：改变文件或者目录的所有者）</code></p>
+</li>
+<li><p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros test1]# chown test1 test1.java</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="chgrp改变所属组"><a href="#chgrp改变所属组" class="headerlink" title="chgrp改变所属组"></a>chgrp改变所属组</h3><ol>
+<li>基本语法：<br> chgrp [最终用户组] [文件或目录]    （功能描述：改变文件或者目录的所属组）</li>
+<li>示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centeros test1]# chgrp testgroup test1.java</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="sudo-以root身份执行指令"><a href="#sudo-以root身份执行指令" class="headerlink" title="sudo 以root身份执行指令"></a>sudo 以root身份执行指令</h3><ol>
+<li><p>基本语法：</p>
+<p>Sudo 指令            （功能描述：以root身份执行指令）</p>
+</li>
+<li>示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[test1@centeros testgroup]# sudo powoff</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
 					
-					<!--<a href="/archives/2018" class="archive-year">2018</a>-->
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2018/09">
-							2018-09
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/09/19/认识hadoop/" itemprop="url">认识hadoop</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/09/19/认识hadoop/" itemprop="url">09-19</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2018/08">
-							2018-08
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/08/09/视频播放插件JWPlayer的使用/" itemprop="url">视频播放插件JWPlayer的使用</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/08/09/视频播放插件JWPlayer的使用/" itemprop="url">08-09</a>
-					</div>
-				</div>		        							
-			
-				
-			    
-		</div>
-	</div>
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2018/08/09/视频播放插件JWPlayer的使用/" title="视频播放插件JWPlayer的使用">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2017/06/20/linux用户和用户组操作命令/" title="linux用户和用户组操作命令">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<div class="theme-annie-comment-button-container">
+	<button id="annie-comment-button" class="theme-annie-comment-button" onclick="Annie_Comment()">
+		加载评论
+		<!--加载评论-->
+	</button>
 </div>
 
+<div id="annie-comment-container" class="theme-annie-comment-main-container">
+
+	
+		
+			<!-- comment gitalk -->
+			<!-- show gitalk comment -->
+
+  <div id="gitalk-container"></div>
+
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+	//thanks O-R
+	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+	//去除尾部匹配正则数组的字符串  
+	//remove redundant characters
+	String.prototype.trimEnd = function(regStr) {
+		var result = this;
+		if(regStr == undefined || regStr == null || regStr == "") {
+			return result;
+		}
+		var array = regStr.split(',');
+
+		if(array.length > 0) {
+
+			var c = array.shift();
+			var str = this;
+			var i = str.length;
+			var rg = new RegExp(c);
+			var matchArr = str.match(rg);
+
+			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+				matchStr = matchStr + '$';
+				result = str.replace(new RegExp(matchStr), "");
+			}
+
+			if(array.length > 0) {
+				return result.trimEnd(array.join())
+			} else {
+				return result;
+			}
+		}
+	};
+
+	//create gitalk
+	var gitalk = new Gitalk({
+		clientID: 'd4992264b2fe52074ee6',
+		clientSecret: 'fa075661aa97dfea6d8d716c1d8049cf469c77ad',
+		//id: window.location.pathname,
+		// id: (window.location.pathname).split("/").pop().substring(0, 49),
+		id: md5(location.href.trimEnd('#.*$,\\?.*$,index.html$')),
+		repo: 'blog-comments',
+		owner: 'LChenYang',
+		admin: 'LChenYang',
+		distractionFreeMode: 'true',
+	})
+	gitalk.render('gitalk-container');
+</script>
+		
+	
+
+</div>
+
+<script type="text/javascript">
+	/* Show Comment */
+	var Annie_Comment = function() {
+		function Show_Hidden(obj) {
+			obj.style.display = 'block';
+		}
+		
+		//var obutton = $('#annie-comment-button');
+		//var obutton = $('#annie-comment-container');
+		var obutton = document.getElementById("annie-comment-button" || "0");
+		var odiv = document.getElementById("annie-comment-container");
+		if( 'obutton' ) {
+			obutton.onclick = function() {
+				Show_Hidden(odiv);
+				$("#annie-comment-button").css("display", 'none');
+				return false;
+			}
+		}
+	};
+
+	(function Annie_Init() {
+		Annie_Comment();
+	})();
+</script>
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#chmod改变权限"><span class="post-toc-text">chmod改变权限</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#chown改变所有者"><span class="post-toc-text">chown改变所有者</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#chgrp改变所属组"><span class="post-toc-text">chgrp改变所属组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sudo-以root身份执行指令"><span class="post-toc-text">sudo 以root身份执行指令</span></a></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
 		</div>
 		</main>
 		
@@ -269,6 +434,11 @@
 	}
 </style>
 
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
 
 
 
@@ -610,6 +780,8 @@
 
 
 
+
+	<script type="text/javascript" src="/js/toc.js"></script>
 
 
 <script type="text/javascript" src="/js/main.js"></script>
