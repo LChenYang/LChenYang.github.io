@@ -1,0 +1,815 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>使用ffmpeg和mencoder进行视频转码</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="LiChenYang">
+    <meta name="keywords" content="">
+    <meta name="description" content="九亿少女的梦">
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-1" style="background-image: url( /img/1.jpg );">	
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《使用ffmpeg和mencoder进行视频转码》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		12/27/2018 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+    		
+        	
+            	<li class="fa fa-/search"><a href="javascript:;" class="popup-trigger" title="Search">搜索</a></li>
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2018/09/06/使用ffmpeg和mencoder进行视频转码/" itemprop="url">		
+			使用ffmpeg和mencoder进行视频转码		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2018/09/06/使用ffmpeg和mencoder进行视频转码/" itemprop="url">
+	<time datetime="2018-09-06T12:48:52.000Z" itemprop="datePublished">
+  		2018-09-06
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#Java" title="Java" rel="5">Java</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&ensp;&ensp;FFmpeg的名称来自MPEG视频编码标准，前面的“FF”代表“Fast Forward”，FFmpeg是一套可以用来记录、转换数字音频、视频，并能将其转化为流的开源计算机程序。可以轻易地实现多种视频格式之间的相互转换。FFmpeg的用户有Google，Facebook，Youtube，优酷，爱奇艺，土豆等。</p>
+<p>FFmpeg组成</p>
+<ol>
+<li>libavformat：用于各种音视频封装格式的生成和解析，包括获取解码所需信息以生成解码上下文结构和读取音视频帧等功能，包含demuxers和muxer库；</li>
+<li>libavcodec：用于各种类型声音/图像编解码；</li>
+<li>libavutil：包含一些公共的工具函数；</li>
+<li>libswscale：用于视频场景比例缩放、色彩映射转换；</li>
+<li>libpostproc：用于后期效果处理；</li>
+<li>ffmpeg：是一个命令行工具，用来对视频文件转换格式，也支持对电视卡实时编码；</li>
+<li>ffsever：是一个HTTP多媒体实时广播流服务器，支持时光平移；</li>
+<li>ffplay：是一个简单的播放器，使用ffmpeg 库解析和解码，通过SDL显示；</li>
+</ol>
+<p>两者比较</p>
+<ol>
+<li>ffmpeg是mplayer和mencoder的库类之一，并且mencoder是mplayer的一部分。</li>
+<li>mplayer是一个播放器，mencoder是一个编码器。</li>
+<li>mencoder更易于操作,并且能转换更多音频/视频文件，但是它不能用于截图。</li>
+<li>转换速度比较：总体上ffmpeg转换的速度快于Mencoder</li>
+<li>转换格式要求：rm、rmvb、rt格式的文件只能用Mencoder转换。</li>
+<li>纯音频格式只能用Mencoder进行转换。如何判断是否是纯音频格式可以通过使用命令 FFmpeg -i “文件的完整路径” 获得输出后就可以分析出来。</li>
+<li>.mov格式的用ffmpeg转换出来的效果比较差，建议用Mencoder进行转换，wmv8用ffmpeg经常会有花屏产生建议用Mencoder。</li>
+<li>视频按比率输出的问题：必须先获取源视频文件的宽度和高度（也是通过 FFmpeg -i “文件的完整路径” 获得输出后就可以分析出来）根据这个高度和宽度的比率来设定输出文件的尺寸。</li>
+</ol>
+<ul>
+<li>ffmpeg的官网地址:<a href="https://www.ffmpeg.org/" target="_blank" rel="noopener">https://www.ffmpeg.org/</a></li>
+<li>mencoder下载地址:<a href="http://www5.mplayerhq.hu/MPlayer/releases/" target="_blank" rel="noopener">http://www5.mplayerhq.hu/MPlayer/releases/</a></li>
+</ul>
+<h3 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;  </span><br><span class="line"><span class="keyword">import</span> java.io.File;  </span><br><span class="line"><span class="keyword">import</span> java.io.IOException;  </span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;  </span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.regex.Matcher;</span><br><span class="line"><span class="keyword">import</span> java.util.regex.Pattern;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*<span class="doctag">@date</span>: 2018年9月05日 上午10:43:22</span></span><br><span class="line"><span class="comment">*@说明:视频转码工具类</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VideoUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">static</span> String mencoder_home = Global.getMencoderHome();<span class="comment">//mencoder.exe安装路径</span></span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">static</span> String ffmpeg_home = Global.getFfmpegHome();<span class="comment">//ffmpeg.exe安装路径</span></span><br><span class="line">		</span><br><span class="line">	    <span class="keyword">private</span> <span class="keyword">static</span> String tempFile_home;<span class="comment">//存放rm,rmvb等无法使用ffmpeg直接转换为flv文件先转成的avi文件</span></span><br><span class="line"></span><br><span class="line">		 </span><br><span class="line">		    <span class="comment">/** </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@param</span> inputFile 待处理视频，需带路径 </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@param</span> outputFile 输出文件地址</span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@param</span> isDel 是否删除转换前视频 </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@return</span> </span></span><br><span class="line"><span class="comment">		     */</span>  </span><br><span class="line">		    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">boolean</span> <span class="title">convert</span><span class="params">(String inputFile, String outputFile)</span></span>&#123;  </span><br><span class="line">		    	tempFile_home = outputFile.substring(<span class="number">0</span>,outputFile.lastIndexOf(<span class="string">"."</span>))+<span class="string">".avi"</span>;</span><br><span class="line">		    	System.out.println(outputFile);  </span><br><span class="line">		    	System.out.println(tempFile_home);  </span><br><span class="line">		        <span class="keyword">if</span> (!checkfile(inputFile)) &#123;  </span><br><span class="line">		            System.out.println(inputFile + <span class="string">"文件不存在"</span>);  </span><br><span class="line">		            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">		        &#125;  </span><br><span class="line">		        <span class="keyword">if</span> (process(inputFile,outputFile)) &#123;  </span><br><span class="line">		            System.out.println(<span class="string">"转码成功"</span>);  </span><br><span class="line">		            <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">		        &#125;  </span><br><span class="line">		        <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">		    &#125;  </span><br><span class="line">		    <span class="comment">//检查文件是否存在  </span></span><br><span class="line">		    <span class="function"><span class="keyword">private</span>  <span class="keyword">static</span>  <span class="keyword">boolean</span> <span class="title">checkfile</span><span class="params">(String path)</span> </span>&#123;  </span><br><span class="line">		        File file = <span class="keyword">new</span> File(path);  </span><br><span class="line">		        <span class="keyword">if</span> (!file.isFile()) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">		        &#125;  </span><br><span class="line">		        <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">		    &#125;  </span><br><span class="line">		    <span class="comment">/** </span></span><br><span class="line"><span class="comment">		     * 转换过程 ：先检查文件类型，在决定调用 processMP4还是processAVI </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@param</span> inputFile </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@param</span> outputFile </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@return</span> </span></span><br><span class="line"><span class="comment">		     */</span>  </span><br><span class="line">		    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">process</span><span class="params">(String inputFile,String outputFile)</span> </span>&#123;  </span><br><span class="line">		        <span class="keyword">int</span> type = checkContentType( inputFile);  </span><br><span class="line">		        <span class="keyword">boolean</span> status = <span class="keyword">false</span>;  </span><br><span class="line">		        <span class="keyword">if</span> (type == <span class="number">0</span>) &#123;  </span><br><span class="line">		            status = processMP4(inputFile,outputFile);<span class="comment">//ffmepg: 能解析的格式</span></span><br><span class="line">		        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type == <span class="number">1</span>) &#123;  </span><br><span class="line">		            String avifilepath = processAVI(type,inputFile);<span class="comment">//  ffmpeg无法解析的文件格式(wmv9，rm，rmvb等),用（mencoder）转换为avi</span></span><br><span class="line">		            <span class="keyword">if</span> (avifilepath == <span class="keyword">null</span>)  </span><br><span class="line">		                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">		            status = processMP4(avifilepath,outputFile); </span><br><span class="line">		        &#125;  </span><br><span class="line">		        <span class="keyword">return</span> status;  </span><br><span class="line">		    &#125;  </span><br><span class="line">		    <span class="comment">/** </span></span><br><span class="line"><span class="comment">		     * 检查视频类型 </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@param</span> inputFile </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@return</span> ffmpeg 能解析返回0，不能解析返回1 </span></span><br><span class="line"><span class="comment">		     */</span>  </span><br><span class="line">		    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">checkContentType</span><span class="params">(String inputFile)</span> </span>&#123;  </span><br><span class="line">		        String type = inputFile.substring(inputFile.lastIndexOf(<span class="string">"."</span>) + <span class="number">1</span>,inputFile.length()).toLowerCase();  </span><br><span class="line">		        <span class="comment">// ffmpeg能解析的格式：（asx，asf，mpg，wmv，3gp，mp4，mov，avi，flv等）  </span></span><br><span class="line">		        <span class="keyword">if</span> (type.equals(<span class="string">"avi"</span>)) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">		        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"mpg"</span>)) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">		        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"wmv"</span>)) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">		        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"3gp"</span>)) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">		        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"mov"</span>)) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">		        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"mp4"</span>)) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">		        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"asf"</span>)) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">		        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"asx"</span>)) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">		        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"flv"</span>)) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">		        &#125;  </span><br><span class="line">		        <span class="comment">// 对ffmpeg无法解析的文件格式(wmv9，rm，rmvb等),  </span></span><br><span class="line">		        <span class="comment">// 使用（mencoder）转换为avi(ffmpeg能解析的)格式.  </span></span><br><span class="line">		        <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"wmv9"</span>)) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="number">1</span>;  </span><br><span class="line">		        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"rm"</span>)) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="number">1</span>;  </span><br><span class="line">		        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"rmvb"</span>)) &#123;  </span><br><span class="line">		            <span class="keyword">return</span> <span class="number">1</span>;  </span><br><span class="line">		        &#125;  </span><br><span class="line">		        <span class="keyword">return</span> <span class="number">9</span>;  </span><br><span class="line">		    &#125;  </span><br><span class="line">		    <span class="comment">/** </span></span><br><span class="line"><span class="comment">		     *  ffmepg: 能解析的格式：（asx，asf，mpg，wmv，3gp，mp4，mov，avi，flv等） </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@param</span> inputFile </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@param</span> outputFile </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@return</span> </span></span><br><span class="line"><span class="comment">		     */</span>  </span><br><span class="line">		    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">processMP4</span><span class="params">(String inputFile,String outputFile)</span> </span>&#123;  </span><br><span class="line">		        <span class="keyword">if</span> (!checkfile(inputFile)) &#123;  </span><br><span class="line">		            System.out.println(inputFile + <span class="string">"文件不存在"</span>);  </span><br><span class="line">		            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">		        &#125; </span><br><span class="line">		        File file = <span class="keyword">new</span> File(outputFile);</span><br><span class="line">		        <span class="keyword">if</span>(file.exists())&#123;</span><br><span class="line">		        	System.out.println(<span class="string">"文件已经存在！"</span>);</span><br><span class="line">		        	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		        	System.out.println(<span class="string">"正在转换"</span>);</span><br><span class="line">		        	List&lt;String&gt; commend = <span class="keyword">new</span> ArrayList&lt;String&gt;();  </span><br><span class="line">		 	        <span class="comment">//低精度  </span></span><br><span class="line">		 	        commend.add(ffmpeg_home);</span><br><span class="line">		 	        commend.add(<span class="string">"-i"</span>);  </span><br><span class="line">		 	        commend.add(inputFile);  </span><br><span class="line">		 	        commend.add(<span class="string">"-ab"</span>);  </span><br><span class="line">		 	        commend.add(<span class="string">"128"</span>);  </span><br><span class="line">		 	        commend.add(<span class="string">"-acodec"</span>);  </span><br><span class="line">		 	        commend.add(<span class="string">"libmp3lame"</span>);  </span><br><span class="line">		 	        commend.add(<span class="string">"-ac"</span>);  </span><br><span class="line">		 	        commend.add(<span class="string">"1"</span>);  </span><br><span class="line">		 	        commend.add(<span class="string">"-ar"</span>);  </span><br><span class="line">		 	        commend.add(<span class="string">"22050"</span>);  </span><br><span class="line">		 	        commend.add(<span class="string">"-r"</span>);  </span><br><span class="line">		 	        commend.add(<span class="string">"29.97"</span>); </span><br><span class="line">		 	        <span class="comment">// 清晰度 -qscale 4 为最好但文件大, -qscale 6基本能满足业务</span></span><br><span class="line">		 	        commend.add(<span class="string">"-qscale"</span>);  </span><br><span class="line">		 	        commend.add(<span class="string">"4"</span>);  </span><br><span class="line">		 	        commend.add(<span class="string">"-y"</span>);  </span><br><span class="line">		 	        commend.add(outputFile);  </span><br><span class="line">		 	        StringBuffer log=<span class="keyword">new</span> StringBuffer();  </span><br><span class="line">		 	        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;commend.size();i++)  </span><br><span class="line">		 	        	log.append(commend.get(i)+<span class="string">" "</span>);  </span><br><span class="line">		 	            System.out.println(log);  </span><br><span class="line">		 	        <span class="keyword">try</span> &#123;  </span><br><span class="line">		 	            ProcessBuilder builder = <span class="keyword">new</span> ProcessBuilder();  </span><br><span class="line">		 	            builder.command(commend);  </span><br><span class="line">		 	            builder.start(); </span><br><span class="line">		 	            <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">		 	        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">		 	            e.printStackTrace();  </span><br><span class="line">		 	            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">		 	        &#125;  </span><br><span class="line">		 	       </span><br><span class="line">		        &#125;</span><br><span class="line">		       </span><br><span class="line">		    &#125;  </span><br><span class="line">		    <span class="comment">/** </span></span><br><span class="line"><span class="comment">		     * Mencoder: </span></span><br><span class="line"><span class="comment">		     * 对ffmpeg无法解析的文件格式(wmv9，rm，rmvb等),用（mencoder）转换为avi(ffmpeg能解析的)格式. </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@param</span> type </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@param</span> inputFile </span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@return</span> </span></span><br><span class="line"><span class="comment">		     */</span>  </span><br><span class="line">		    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span>  String <span class="title">processAVI</span><span class="params">(<span class="keyword">int</span> type,String inputFile)</span> </span>&#123;  </span><br><span class="line">		        File file =<span class="keyword">new</span> File(tempFile_home);  </span><br><span class="line">		        <span class="keyword">if</span>(file.exists())&#123;</span><br><span class="line">		        	System.out.println(<span class="string">"文件已经存在！"</span>);</span><br><span class="line">		        	<span class="keyword">return</span> tempFile_home;</span><br><span class="line">		        &#125;  </span><br><span class="line">		        List&lt;String&gt; commend = <span class="keyword">new</span> ArrayList&lt;String&gt;();  </span><br><span class="line">		        commend.add(mencoder_home);  </span><br><span class="line">		        commend.add(inputFile);  </span><br><span class="line">		        commend.add(<span class="string">"-oac"</span>);  </span><br><span class="line">		        commend.add(<span class="string">"mp3lame"</span>);  </span><br><span class="line">		        commend.add(<span class="string">"-lameopts"</span>);  </span><br><span class="line">		        commend.add(<span class="string">"preset=64"</span>);  </span><br><span class="line">		        commend.add(<span class="string">"-ovc"</span>);  </span><br><span class="line">		        commend.add(<span class="string">"xvid"</span>);  </span><br><span class="line">		        commend.add(<span class="string">"-xvidencopts"</span>);  </span><br><span class="line">		        commend.add(<span class="string">"bitrate=600"</span>);  </span><br><span class="line">		        commend.add(<span class="string">"-of"</span>);  </span><br><span class="line">		        commend.add(<span class="string">"avi"</span>);  </span><br><span class="line">		        commend.add(<span class="string">"-o"</span>);  </span><br><span class="line">		        commend.add(tempFile_home);  </span><br><span class="line">		        StringBuffer log=<span class="keyword">new</span> StringBuffer();  </span><br><span class="line">		        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;commend.size();i++)  </span><br><span class="line">		        	log.append(commend.get(i)+<span class="string">" "</span>);  </span><br><span class="line">		        System.out.println(log);  </span><br><span class="line">		        <span class="keyword">try</span>   </span><br><span class="line">		        &#123;  </span><br><span class="line">		            ProcessBuilder builder = <span class="keyword">new</span> ProcessBuilder();  </span><br><span class="line">		            builder.command(commend);  </span><br><span class="line">		            Process p=builder.start();  </span><br><span class="line">		            <span class="comment">/** </span></span><br><span class="line"><span class="comment">		             * 清空Mencoder进程 的输出流和错误流 </span></span><br><span class="line"><span class="comment">		             * 因为有些本机平台仅针对标准输入和输出流提供有限的缓冲区大小， </span></span><br><span class="line"><span class="comment">		             * 如果读写子进程的输出流或输入流迅速出现失败，则可能导致子进程阻塞，甚至产生死锁。  </span></span><br><span class="line"><span class="comment">		             * 创建子进程Process之后，一定要及时取走子进程的输出信息和错误信息，</span></span><br><span class="line"><span class="comment">		             * 否则输出信息流和错误信息流很可能因为信息太多导致被填满，最终导致子进程阻塞住，然后执行不下去。</span></span><br><span class="line"><span class="comment">		             */</span>  </span><br><span class="line">		            <span class="keyword">final</span> InputStream is1 = p.getInputStream();  </span><br><span class="line">		            <span class="keyword">final</span> InputStream is2 = p.getErrorStream();  </span><br><span class="line">		            <span class="keyword">new</span> Thread() &#123;  </span><br><span class="line">		                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">		                    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(is1));  </span><br><span class="line">		                    <span class="keyword">try</span> &#123;  </span><br><span class="line">		                        String lineB = <span class="keyword">null</span>;  </span><br><span class="line">		                        <span class="keyword">while</span> ((lineB = br.readLine()) != <span class="keyword">null</span> )&#123;  </span><br><span class="line">		                            <span class="keyword">if</span>(lineB != <span class="keyword">null</span>)System.out.println(lineB);  </span><br><span class="line">		                        &#125;  </span><br><span class="line">		                    &#125; <span class="keyword">catch</span> (IOException e) &#123;  </span><br><span class="line">		                        e.printStackTrace();  </span><br><span class="line">		                    &#125;  </span><br><span class="line">		                &#125;  </span><br><span class="line">		            &#125;.start();   </span><br><span class="line">		            <span class="keyword">new</span> Thread() &#123;  </span><br><span class="line">		                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">		                    BufferedReader br2 = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(is2));  </span><br><span class="line">		                    <span class="keyword">try</span> &#123;  </span><br><span class="line">		                        String lineC = <span class="keyword">null</span>;  </span><br><span class="line">		                        <span class="keyword">while</span> ( (lineC = br2.readLine()) != <span class="keyword">null</span>)&#123;  </span><br><span class="line">		                            <span class="keyword">if</span>(lineC != <span class="keyword">null</span>)System.out.println(lineC);  </span><br><span class="line">		                        &#125;  </span><br><span class="line">		                    &#125; <span class="keyword">catch</span> (IOException e) &#123;  </span><br><span class="line">		                        e.printStackTrace();  </span><br><span class="line">		                    &#125;  </span><br><span class="line">		                &#125;  </span><br><span class="line">		            &#125;.start();   </span><br><span class="line">		            <span class="comment">//Mencoder进程转换结束，调用ffmpeg进程  </span></span><br><span class="line">		            p.waitFor();  </span><br><span class="line">		            <span class="keyword">return</span> tempFile_home;  </span><br><span class="line">		        &#125;<span class="keyword">catch</span> (Exception e)&#123;   </span><br><span class="line">		            System.err.println(e);   </span><br><span class="line">		            <span class="keyword">return</span> <span class="keyword">null</span>;  </span><br><span class="line">		        &#125;   </span><br><span class="line">		        </span><br><span class="line">		    &#125;  </span><br><span class="line">		    </span><br><span class="line">		    </span><br><span class="line">		    <span class="comment">/**</span></span><br><span class="line"><span class="comment">		     * 获取视频时长</span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@param</span> video_path</span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@param</span> ffmpeg_path</span></span><br><span class="line"><span class="comment">		     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">		     */</span></span><br><span class="line">		    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getVideoTime</span><span class="params">(String video_path)</span> </span>&#123;</span><br><span class="line">				List&lt;String&gt; commands = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">				commands.add(ffmpeg_home);</span><br><span class="line">				commands.add(<span class="string">"-i"</span>);</span><br><span class="line">				commands.add(video_path);</span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">					ProcessBuilder builder = <span class="keyword">new</span> ProcessBuilder();</span><br><span class="line">					builder.command(commands);</span><br><span class="line">					<span class="keyword">final</span> Process p = builder.start();</span><br><span class="line">					<span class="comment">//从输入流中读取视频信息</span></span><br><span class="line">			        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(p.getErrorStream()));</span><br><span class="line">			        StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">			        String line = <span class="string">""</span>;</span><br><span class="line">		            <span class="keyword">while</span> ((line = br.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">		                sb.append(line);</span><br><span class="line">		            &#125;</span><br><span class="line">			        br.close();</span><br><span class="line">			        <span class="comment">//从视频信息中解析时长</span></span><br><span class="line">			        String regexDuration = <span class="string">"Duration: (.*?), start: (.*?), bitrate: (\\d*) kb\\/s"</span>;</span><br><span class="line">			        Pattern pattern = Pattern.compile(regexDuration);</span><br><span class="line">			        Matcher m = pattern.matcher(sb.toString());</span><br><span class="line">			        <span class="keyword">if</span> (m.find()) &#123;</span><br><span class="line">			        	<span class="comment">//int time = getTimelen(m.group(1));</span></span><br><span class="line">			        	<span class="comment">//System.out.println(video_path+",视频时长："+m.group(1));</span></span><br><span class="line">			        	<span class="keyword">return</span> m.group(<span class="number">1</span>);</span><br><span class="line">			        &#125;</span><br><span class="line">				&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		    </span><br><span class="line">		    </span><br><span class="line">		    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getTimelen</span><span class="params">(String timelen)</span></span>&#123;</span><br><span class="line">		        <span class="keyword">int</span> min=<span class="number">0</span>;</span><br><span class="line">		        String strs[] = timelen.split(<span class="string">":"</span>);</span><br><span class="line">		        <span class="keyword">if</span> (strs[<span class="number">0</span>].compareTo(<span class="string">"0"</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		            min+=Integer.valueOf(strs[<span class="number">0</span>])*<span class="number">60</span>*<span class="number">60</span>;<span class="comment">//秒</span></span><br><span class="line">		        &#125;</span><br><span class="line">		        <span class="keyword">if</span>(strs[<span class="number">1</span>].compareTo(<span class="string">"0"</span>)&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		            min+=Integer.valueOf(strs[<span class="number">1</span>])*<span class="number">60</span>;</span><br><span class="line">		        &#125;</span><br><span class="line">		        <span class="keyword">if</span>(strs[<span class="number">2</span>].compareTo(<span class="string">"0"</span>)&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		            min+=Math.round(Float.valueOf(strs[<span class="number">2</span>]));</span><br><span class="line">		        &#125;</span><br><span class="line">		        <span class="keyword">return</span> min;</span><br><span class="line">		    &#125;</span><br><span class="line">		       </span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2018/09/09/视频播放插件JWPlayer的使用/" title="视频播放插件JWPlayer的使用">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2017/06/25/linux文件权限类命令/" title="linux文件权限类命令">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<div class="theme-annie-comment-button-container">
+	<button id="annie-comment-button" class="theme-annie-comment-button" onclick="Annie_Comment()">
+		加载评论
+		<!--加载评论-->
+	</button>
+</div>
+
+<div id="annie-comment-container" class="theme-annie-comment-main-container">
+
+	
+		
+			<!-- comment gitalk -->
+			<!-- show gitalk comment -->
+
+  <div id="gitalk-container"></div>
+
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+	//thanks O-R
+	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+	//去除尾部匹配正则数组的字符串  
+	//remove redundant characters
+	String.prototype.trimEnd = function(regStr) {
+		var result = this;
+		if(regStr == undefined || regStr == null || regStr == "") {
+			return result;
+		}
+		var array = regStr.split(',');
+
+		if(array.length > 0) {
+
+			var c = array.shift();
+			var str = this;
+			var i = str.length;
+			var rg = new RegExp(c);
+			var matchArr = str.match(rg);
+
+			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+				matchStr = matchStr + '$';
+				result = str.replace(new RegExp(matchStr), "");
+			}
+
+			if(array.length > 0) {
+				return result.trimEnd(array.join())
+			} else {
+				return result;
+			}
+		}
+	};
+
+	//create gitalk
+	var gitalk = new Gitalk({
+		clientID: 'd4992264b2fe52074ee6',
+		clientSecret: 'fa075661aa97dfea6d8d716c1d8049cf469c77ad',
+		//id: window.location.pathname,
+		// id: (window.location.pathname).split("/").pop().substring(0, 49),
+		id: md5(location.href.trimEnd('#.*$,\\?.*$,index.html$')),
+		repo: 'blog-comments',
+		owner: 'LChenYang',
+		admin: 'LChenYang',
+		distractionFreeMode: 'true',
+	})
+	gitalk.render('gitalk-container');
+</script>
+		
+	
+
+</div>
+
+<script type="text/javascript">
+	/* Show Comment */
+	var Annie_Comment = function() {
+		function Show_Hidden(obj) {
+			obj.style.display = 'block';
+		}
+		
+		//var obutton = $('#annie-comment-button');
+		//var obutton = $('#annie-comment-container');
+		var obutton = document.getElementById("annie-comment-button" || "0");
+		var odiv = document.getElementById("annie-comment-container");
+		if( 'obutton' ) {
+			obutton.onclick = function() {
+				Show_Hidden(odiv);
+				$("#annie-comment-button").css("display", 'none');
+				return false;
+			}
+		}
+	};
+
+	(function Annie_Init() {
+		Annie_Comment();
+	})();
+</script>
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#概述"><span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工具类"><span class="post-toc-text">工具类</span></a></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2018, content by LiChenYang. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.		
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 0px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+	<div class="popup search-popup local-search-popup">
+    <span class="popup-btn-close">
+      ESC
+    </span>
+    <div class="container">
+      <div class="col-md-8 col-md-offset-2">
+
+        <div class="local-search-header clearfix">
+            <span class="search-icon"></span>
+            <div class="local-search-input-wrapper">
+              <input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+            </div>
+        </div>
+
+        <div id="local-search-result"></div>
+
+      </div>
+    </div>
+</div>
+
+<script src="/js/ziploader.js"></script>
+
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').fadeOut(300);
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $('.popup').fadeIn(300);
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // get search zip version
+    $.get('/searchVersion.txt?t=' + (+new Date()), function(res) {
+      if (localStorage.getItem('searchVersion') !== res) {
+        localStorage.setItem('searchVersion', res);
+        initSearchJson();
+      }
+    });
+
+    function initSearchJson () {
+      initLoad(['/search.zip'], {
+        loadOptions: {
+          success: function(obj) {
+            localStorage.setItem('searchJson', obj['search.json'])
+          },
+          error: function(e) {
+            return console.log(e)
+          }
+        },
+        returnOptions: {
+          'json': TYPE_TEXT
+        },
+        mimeOptions:{
+          'json':'application/json'
+        }
+      })
+    }
+
+    // search function;
+    var searchFunc = function(search_id, content_id) {
+      'use strict';
+
+      isfetched = true;
+      var datas = JSON.parse(localStorage.getItem('searchJson'));
+      console.log(search_id)
+      var input = document.getElementById(search_id);
+      var resultContent = document.getElementById(content_id);
+      var inputEventFunction = function() {
+        var searchText = input.value.trim().toLowerCase();
+        var keywords = searchText.split(/[\s\-]+/);
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        var resultItems = [];
+        if (searchText.length > 0) {
+          // perform local searching
+          datas.forEach(function(data) {
+            var isMatch = false;
+            var hitCount = 0;
+            var searchTextCount = 0;
+            var title = data.title ? data.title.trim() : '';
+            var titleInLowerCase = title.toLowerCase();
+            var content = data.content ? data.content.trim().replace(/<[^>]+>/g,"") : '';
+            var contentInLowerCase = content.toLowerCase();
+            var articleUrl = decodeURIComponent(data.url);
+            var indexOfTitle = [];
+            var indexOfContent = [];
+            // only match articles with not empty titles
+            keywords.forEach(function(keyword) {
+              function getIndexByWord(word, text, caseSensitive) {
+                var wordLen = word.length;
+                if (wordLen === 0) {
+                  return [];
+                }
+                var startPosition = 0, position = [], index = [];
+                if (!caseSensitive) {
+                  text = text.toLowerCase();
+                  word = word.toLowerCase();
+                }
+                while ((position = text.indexOf(word, startPosition)) > -1) {
+                  index.push({position: position, word: word});
+                  startPosition = position + wordLen;
+                }
+                return index;
+              }
+
+              indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+              indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+            });
+            if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+              isMatch = true;
+              hitCount = indexOfTitle.length + indexOfContent.length;
+            }
+
+            // show search results
+
+            if (isMatch) {
+              // sort index by position of keyword
+
+              [indexOfTitle, indexOfContent].forEach(function (index) {
+                index.sort(function (itemLeft, itemRight) {
+                  if (itemRight.position !== itemLeft.position) {
+                    return itemRight.position - itemLeft.position;
+                  } else {
+                    return itemLeft.word.length - itemRight.word.length;
+                  }
+                });
+              });
+
+              // merge hits into slices
+
+              function mergeIntoSlice(text, start, end, index) {
+                var item = index[index.length - 1];
+                var position = item.position;
+                var word = item.word;
+                var hits = [];
+                var searchTextCountInSlice = 0;
+                while (position + word.length <= end && index.length != 0) {
+                  if (word === searchText) {
+                    searchTextCountInSlice++;
+                  }
+                  hits.push({position: position, length: word.length});
+                  var wordEnd = position + word.length;
+
+                  // move to next position of hit
+
+                  index.pop();
+                  while (index.length != 0) {
+                    item = index[index.length - 1];
+                    position = item.position;
+                    word = item.word;
+                    if (wordEnd > position) {
+                      index.pop();
+                    } else {
+                      break;
+                    }
+                  }
+                }
+                searchTextCount += searchTextCountInSlice;
+                return {
+                  hits: hits,
+                  start: start,
+                  end: end,
+                  searchTextCount: searchTextCountInSlice
+                };
+              }
+
+              var slicesOfTitle = [];
+              if (indexOfTitle.length != 0) {
+                slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+              }
+
+              var slicesOfContent = [];
+              while (indexOfContent.length != 0) {
+                var item = indexOfContent[indexOfContent.length - 1];
+                var position = item.position;
+                var word = item.word;
+                // cut out 100 characters
+                var start = position - 20;
+                var end = position + 80;
+                if(start < 0){
+                  start = 0;
+                }
+                if (end < position + word.length) {
+                  end = position + word.length;
+                }
+                if(end > content.length){
+                  end = content.length;
+                }
+                slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+              }
+
+              // sort slices in content by search text's count and hits' count
+
+              slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                  return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                  return sliceRight.hits.length - sliceLeft.hits.length;
+                } else {
+                  return sliceLeft.start - sliceRight.start;
+                }
+              });
+
+              // select top N slices in content
+
+              var upperBound = parseInt('2');
+              if (upperBound >= 0) {
+                slicesOfContent = slicesOfContent.slice(0, upperBound);
+              }
+
+              // highlight title and content
+
+              function highlightKeyword(text, slice) {
+                var result = '';
+                var prevEnd = slice.start;
+                slice.hits.forEach(function (hit) {
+                  result += text.substring(prevEnd, hit.position);
+                  var end = hit.position + hit.length;
+                  result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                  prevEnd = end;
+                });
+                result += text.substring(prevEnd, slice.end);
+                return result;
+              }
+
+              var resultItem = '';
+
+              if (slicesOfTitle.length != 0) {
+                resultItem += "<li><a target='_blank' href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+              } else {
+                resultItem += "<li><a target='_blank' href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+              }
+
+              slicesOfContent.forEach(function (slice) {
+                resultItem +=  "<p class=\"search-result\">" + highlightKeyword(content, slice) + "...</p>";
+              });
+
+              resultItem += "</li>";
+              resultItems.push({
+                item: resultItem,
+                searchTextCount: searchTextCount,
+                hitCount: hitCount,
+                id: resultItems.length
+              });
+            }
+          })
+        };
+        if (keywords.length === 1 && keywords[0] === "") {
+          resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+        } else if (resultItems.length === 0) {
+          resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /> no result </div>'
+        } else {
+          resultItems.sort(function (resultLeft, resultRight) {
+            if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+              return resultRight.searchTextCount - resultLeft.searchTextCount;
+            } else if (resultLeft.hitCount !== resultRight.hitCount) {
+              return resultRight.hitCount - resultLeft.hitCount;
+            } else {
+              return resultRight.id - resultLeft.id;
+            }
+          });
+          var searchResultList = '<ul class=\"search-result-list\">';
+          resultItems.forEach(function (result) {
+            searchResultList += result.item;
+          })
+          searchResultList += "</ul>";
+          resultContent.innerHTML = searchResultList;
+        }
+      }
+
+      if ('auto' === 'auto') {
+        input.addEventListener('input', inputEventFunction);
+      } else {
+        $('.search-icon').click(inputEventFunction);
+        input.addEventListener('keypress', function (event) {
+          if (event.keyCode === 13) {
+            inputEventFunction();
+          }
+        });
+      }
+
+      // remove loading animation
+      $('body').css('overflow', '');
+
+      proceedsearch();
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        $('.sb-close').click();
+        searchFunc('local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+
