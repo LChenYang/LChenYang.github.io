@@ -246,6 +246,102 @@ Matcher 使用Pattern实例提供的正则表达式对目标字符串进行匹�
 			<article class="am-g blog-entry-article">
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+					<img src="/img/詹姆斯欧文.jpg" class="am-u-sm-12">
+				</div>	
+
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+					<span class="theme-annie-post-date">
+						<a href="/2017/08/25/JVM的垃圾回收机制/" itemprop="url">
+	<time datetime="2017-08-25T13:22:42.000Z" itemprop="datePublished">
+  		2017-08-25
+  </time>
+</a>    
+
+					</span>
+					<span class="theme-annie-post-title">
+						
+	
+		<a href="/2017/08/25/JVM的垃圾回收机制/" itemprop="url">		
+			JVM的垃圾回收机制		
+		</a>
+	
+
+					</span>
+					
+					
+						<p>
+							
+								垃圾对象的判断&ensp;&ensp;判断对象为垃圾对象有两种方法：引用计数法，可达性分析法，普遍是的是可达性分析法
+可达性分析法的实现原理：
+
+&ensp;&ensp;定义gcroot一直往下找，如果能找到对象，证明该对象在使用，如果找不到该对象，标记该对象应该回收。上图中栈作为gcroot只是其中一种情况，可作为gcroots的对象有虚拟机栈（栈帧中的局部变量表），方法区的类属性所引用的对象，	
+							  
+						</p> 
+					
+
+					
+						<span class="continue-read">      	
+							<a href="/2017/08/25/JVM的垃圾回收机制/" class="pull-right">
+								展开全文
+							</a>		
+						</span>
+					         		
+				</div>
+		
+			</article>
+		
+			<article class="am-g blog-entry-article">
+
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+					<img src="/img/热火三巨头.jpg" class="am-u-sm-12">
+				</div>	
+
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+					<span class="theme-annie-post-date">
+						<a href="/2017/08/19/JVM的重要组成/" itemprop="url">
+	<time datetime="2017-08-19T12:49:50.000Z" itemprop="datePublished">
+  		2017-08-19
+  </time>
+</a>    
+
+					</span>
+					<span class="theme-annie-post-title">
+						
+	
+		<a href="/2017/08/19/JVM的重要组成/" itemprop="url">		
+			JVM的重要组成		
+		</a>
+	
+
+					</span>
+					
+					
+						<p>
+							
+								JAVA内存结构&ensp;&ensp;Java虚拟机规范中规定的JVM运行时数据区如下图所示：
+
+&ensp;&ensp;总体来说，分为线程共享部分（方法区、堆）和线程隔离区（虚拟机栈、本地方法栈和程序计数器）。
+
+方法区
+&ensp;&ensp;用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。其中常量存储于运行时常量区中，运行时常量区是区的一部分，用于存储编译期生	
+							  
+						</p> 
+					
+
+					
+						<span class="continue-read">      	
+							<a href="/2017/08/19/JVM的重要组成/" class="pull-right">
+								展开全文
+							</a>		
+						</span>
+					         		
+				</div>
+		
+			</article>
+		
+			<article class="am-g blog-entry-article">
+
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
 					<img src="/img/双少.jpg" class="am-u-sm-12">
 				</div>	
 
@@ -541,105 +637,6 @@ classpath：不仅包含class路径，还包括jar文件中（class路径）进�
 					
 						<span class="continue-read">      	
 							<a href="/2017/04/19/classpath和classpath-的区别/" class="pull-right">
-								展开全文
-							</a>		
-						</span>
-					         		
-				</div>
-		
-			</article>
-		
-			<article class="am-g blog-entry-article">
-
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/yongshi.jpg" class="am-u-sm-12">
-				</div>	
-
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-					<span class="theme-annie-post-date">
-						<a href="/2017/03/24/优化Tomcat配置/" itemprop="url">
-	<time datetime="2017-03-24T13:49:43.000Z" itemprop="datePublished">
-  		2017-03-24
-  </time>
-</a>    
-
-					</span>
-					<span class="theme-annie-post-title">
-						
-	
-		<a href="/2017/03/24/优化Tomcat配置/" itemprop="url">		
-			优化Tomcat配置		
-		</a>
-	
-
-					</span>
-					
-					
-						<p>
-							
-								概述&emsp;&emsp;Tomcat有很多方面，今天主要从内存、并发、缓存三个方面介绍优化方法。
-Tomcat内存优化&emsp;&emsp;Tomcat内存优化主要是对 tomcat 启动参数优化，我们可以在 tomcat 的启动脚本 catalina.sh 中设置 java_OPTS 参数。
-
-JAVA_OPTS参数说明
--server 启用jdk 的 server 版；S
-
--Xms j	
-							  
-						</p> 
-					
-
-					
-						<span class="continue-read">      	
-							<a href="/2017/03/24/优化Tomcat配置/" class="pull-right">
-								展开全文
-							</a>		
-						</span>
-					         		
-				</div>
-		
-			</article>
-		
-			<article class="am-g blog-entry-article">
-
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/luosi.jpg" class="am-u-sm-12">
-				</div>	
-
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-					<span class="theme-annie-post-date">
-						<a href="/2017/03/22/浅析Tomcat原理及请求过程/" itemprop="url">
-	<time datetime="2017-03-22T13:05:24.000Z" itemprop="datePublished">
-  		2017-03-22
-  </time>
-</a>    
-
-					</span>
-					<span class="theme-annie-post-title">
-						
-	
-		<a href="/2017/03/22/浅析Tomcat原理及请求过程/" itemprop="url">		
-			浅析Tomcat原理及请求过程		
-		</a>
-	
-
-					</span>
-					
-					
-						<p>
-							
-								概述&emsp;&emsp;Tomcat是一个JSP/Servlet容器。其作为Servlet容器，有三种工作模式：独立的Servlet容器、进程内的Servlet容器和进程外的Servlet容器。
-Tomcat目录：tomcat
-|---bin：存放启动和关闭tomcat脚本
-
-|---conf：存放不同的配置文件（server.xml和web.xml）；
-|---doc：存放Tomcat文档；	
-							  
-						</p> 
-					
-
-					
-						<span class="continue-read">      	
-							<a href="/2017/03/22/浅析Tomcat原理及请求过程/" class="pull-right">
 								展开全文
 							</a>		
 						</span>

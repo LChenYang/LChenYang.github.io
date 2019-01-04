@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>文章归档: 2018/10</title>
+	<title>JVM的垃圾回收机制</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,9 +54,8 @@
 		
 		
 			
-			<!-- && is_current('archives/index.html') -->
-			<p class="page-name">文章归档</p>
-		
+			<p class="page-name">当前文章&nbsp;:&nbsp;《JVM的垃圾回收机制》</p>
+			
 		
 	
 	
@@ -148,65 +147,245 @@
 		<!-- content srart -->
 <div class="am-g am-g-fixed blog-fixed blog-content">
 	<div class="am-u-md-8 am-u-sm-12">
-		<div class="archive">
 
-			<div class="blog-text-center">
-				
-					<i class="fa fa-book">总计25篇文章</i>
-				
-			</div>  
+		<article class="am-article blog-article-p">
 
-			
+			<div class="am-article-hd">
+				
 
-							
-				
-				
-				
+
+				<h1 class="am-article-title blog-text-center">
 					
+					
+	
+		<a href="/2017/08/25/JVM的垃圾回收机制/" itemprop="url">		
+			JVM的垃圾回收机制		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2017/08/25/JVM的垃圾回收机制/" itemprop="url">
+	<time datetime="2017-08-25T13:22:42.000Z" itemprop="datePublished">
+  		2017-08-25
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#Java" title="Java" rel="13">Java</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h3 id="垃圾对象的判断"><a href="#垃圾对象的判断" class="headerlink" title="垃圾对象的判断"></a>垃圾对象的判断</h3><p>&ensp;&ensp;判断对象为垃圾对象有两种方法：引用计数法，可达性分析法，普遍是的是可达性分析法</p>
+<p>可达性分析法的实现原理：</p>
+<p><img src="/2017/08/25/JVM的垃圾回收机制/1.jpg" alt="JVM的垃圾回收机制"></p>
+<p>&ensp;&ensp;定义gcroot一直往下找，如果能找到对象，证明该对象在使用，如果找不到该对象，标记该对象应该回收。上图中栈作为gcroot只是其中一种情况，可作为gcroots的对象有虚拟机栈（栈帧中的局部变量表），方法区的类属性所引用的对象，方法区中常量所引用的对象，本地方法栈中引用的对象。</p>
+<p>引用计数法的实现原理：</p>
+<p><img src="/2017/08/25/JVM的垃圾回收机制/2.jpg" alt="JVM的垃圾回收机制"></p>
+<p>&ensp;&ensp;在对象中添加一个引用计数器，当有地方引用这个对象的时候引用计数器的值就+1，当引用失效的时候，计数器的值就-1，问题就是，如果a、b引用断开，这时候A、B对象计数器的值都是1，所以当循环引用的时候，不能进行垃圾回收。</p>
+<h3 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h3><p>&ensp;&ensp;常见的垃圾回收算法有标记-清除算法，复制算法，标记-整理算法，分代收集算法。</p>
+<ul>
+<li><p>标记清除算法：</p>
+<p>&ensp;&ensp;此算法分为两个阶段，标记阶段（找到所有可访问的对象进行标记）和清除阶段（遍历堆把未被标记的对象清除），此算法主要存在两方面的问题，效率问题和空间问题。这样会使不连续的空间越来越多，实在找不到空间的时候回触发再一次的垃圾回收。</p>
+</li>
+<li><p>标记整理算法</p>
+<p>&ensp;&ensp;标记整理算法可以说是标记清除算法的升级版，标记整理算法也分为两个阶段，标记和整理，标记阶段是和标记清除算法的第一阶段一模一样的，均是遍历GC Roots，将存活的对象标记；在整理阶段会移动所有存活的对象，且按照内存地址次序依次排序，然后将末端内存地址以后的内存全部回收。因为需要整理内存，与标记清除算法相比，标记整理算法需要花费更多的时间。</p>
+</li>
+<li><p>复制算法</p>
+<p>&ensp;&ensp;复制算法将堆上的内存分为大小相等的两个区域，一个是活动区域，一个是空闲区域。在程序运行过程中使用活动区域，也就是有一半的空间被浪费掉首先找出活动空间中所有存活的对象，将这些对象复制到空闲区域，将之前的活动空间清空，并变为空闲空间，存货对象所在的区域变为活动区域，这样就能保证在内存回收完毕后有一大片连续的可用空间。</p>
+</li>
+<li><p>分代回收算法</p>
+<p>&ensp;&ensp;当前商用虚拟机基本都采用分代垃圾回收算法来回收垃圾，它主要是根据对象的生命周期将内存划分，然后进行分区管理</p>
+<p><img src="/2017/08/25/JVM的垃圾回收机制/3.jpg" alt="JVM的垃圾回收机制"></p>
+<p>&ensp;&ensp;分代垃圾回收机制将堆空间分为新生代和老年代，新生代又被分为Eden区，From区，To区。当创建一个对象的时候，在Eden区进行操作，当Eden区内存不足的时候，会触发一次YoungGC（年轻代的垃圾回收），将存活的对象复制到From区，Eden区被清理，并继续创建新的对象，当内存再次不足的时候再次触发YoungGC，将Eden区与From区存活的对象复制到To区，下一次YoungGC的时候，将Eden区与To区中存活的对象复制到From区，经过若干次YoungGC后，还存活的对象会被复制到老年代。</p>
+</li>
+</ul>
+<h3 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h3><ul>
+<li><p>serial收集器</p>
+<p>&ensp;&ensp;最基础，发展最悠久的单线程垃圾收集器，适合桌面应用，适用于内存分配比较小，收集垃圾比较快的应用。如有四个java线程在运行，垃圾收集时java线程停止，垃圾收集后，java线程继续进行。</p>
+</li>
+<li><p>parnew收集器</p>
+<p>&ensp;&ensp;parnew收集器是是serial收集器的多线程版本，使用多线程进行垃圾收集（一般用于新生代收集器）。</p>
+</li>
+<li><p>parallel Scavenge收集器</p>
+<p>&ensp;&ensp;采用复制算法的多线程收集器，可达到可控制的吞吐量（cpu用于运行用户代码的时间与cpu消耗的总时间的比值（垃圾收集时间+用户代码执行时间）），可用-XX：MaxGCPauseMillis来设置，垃圾收集器的最大停顿时间，用-XX：GCTimeRatio来设置吞度量大小。此收集器与parnew比较相似，但是对吞度量要求比较高。</p>
+</li>
+<li><p>CMS收集器</p>
+<p>&ensp;&ensp;CMS收集器是基于标记-清除算法实现的，其运作步骤为初始标记，并发标记，重新标记，并发清除（一般用作老年代收集器）</p>
+<p> <img src="/2017/08/25/JVM的垃圾回收机制/4.jpg" alt="JVM的垃圾回收机制"></p>
+<p>&ensp;&ensp;其中，初始标记，重新标记需要停止正在运行的java线程，初始标记是标记一下GCRoots能直接关联到的对象，速度很快，并发标记是GC Roots Tracing的过程（根据可达性分析法进行关联的过程），重新标记是为了修正并发标记期间，因用户程序继续运作而导致标记产生变动的对象的标记记录，这个阶段停顿的时间比初始标记稍长，但远比并发标记的时间短。可以看出，CMS收集器的耗时时间长的过程都可以与用户线程一起并发的执行。</p>
+</li>
+<li><p>G1收集器</p>
+<p>&ensp;&ensp;G1收集器具有并行与并发结合，分代收集，空间整合，可预测的停顿等特点，采用标记整理算法，G1收集器不会产生空间碎片，分配大对象时不会因为无法找到连续空间而提前触发下一次GC，G1收集器能让使用者明确在一个长度为N毫秒的时间片段内，消耗在垃圾收集上的时间不能超过多少，上面提到的收集器收集的范围都是整个新生代或者老年代，而G1将java堆划分为多个大小相等的独立区域（Region），新生代和老年代不再是物理隔阂了。</p>
+</li>
+</ul>
 
 					
-					<!--<a href="/archives/2018" class="archive-year">2018</a>-->
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2018/10">
-							2018-10
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/10/17/使用Java生成二维码/" itemprop="url">使用Java生成二维码</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/10/17/使用Java生成二维码/" itemprop="url">10-17</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/10/15/压缩包解压/" itemprop="url">压缩包解压</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/10/15/压缩包解压/" itemprop="url">10-15</a>
-					</div>
-				</div>		        							
-			
-				
-			    
-		</div>
-	</div>
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2018/07/13/Java中Pattern、Matcher类的简单使用/" title="Java中Pattern、Matcher类的简单使用">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2017/08/19/JVM的重要组成/" title="JVM的重要组成">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<div class="theme-annie-comment-button-container">
+	<button id="annie-comment-button" class="theme-annie-comment-button" onclick="Annie_Comment()">
+		加载评论
+		<!--加载评论-->
+	</button>
 </div>
 
+<div id="annie-comment-container" class="theme-annie-comment-main-container">
+
+	
+		
+			<!-- comment gitalk -->
+			<!-- show gitalk comment -->
+
+  <div id="gitalk-container"></div>
+
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+	//thanks O-R
+	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+	//去除尾部匹配正则数组的字符串  
+	//remove redundant characters
+	String.prototype.trimEnd = function(regStr) {
+		var result = this;
+		if(regStr == undefined || regStr == null || regStr == "") {
+			return result;
+		}
+		var array = regStr.split(',');
+
+		if(array.length > 0) {
+
+			var c = array.shift();
+			var str = this;
+			var i = str.length;
+			var rg = new RegExp(c);
+			var matchArr = str.match(rg);
+
+			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+				matchStr = matchStr + '$';
+				result = str.replace(new RegExp(matchStr), "");
+			}
+
+			if(array.length > 0) {
+				return result.trimEnd(array.join())
+			} else {
+				return result;
+			}
+		}
+	};
+
+	//create gitalk
+	var gitalk = new Gitalk({
+		clientID: 'd4992264b2fe52074ee6',
+		clientSecret: 'fa075661aa97dfea6d8d716c1d8049cf469c77ad',
+		//id: window.location.pathname,
+		// id: (window.location.pathname).split("/").pop().substring(0, 49),
+		id: md5(location.href.trimEnd('#.*$,\\?.*$,index.html$')),
+		repo: 'blog-comments',
+		owner: 'LChenYang',
+		admin: 'LChenYang',
+		distractionFreeMode: 'true',
+	})
+	gitalk.render('gitalk-container');
+</script>
+		
+	
+
+</div>
+
+<script type="text/javascript">
+	/* Show Comment */
+	var Annie_Comment = function() {
+		function Show_Hidden(obj) {
+			obj.style.display = 'block';
+		}
+		
+		//var obutton = $('#annie-comment-button');
+		//var obutton = $('#annie-comment-container');
+		var obutton = document.getElementById("annie-comment-button" || "0");
+		var odiv = document.getElementById("annie-comment-container");
+		if( 'obutton' ) {
+			obutton.onclick = function() {
+				Show_Hidden(odiv);
+				$("#annie-comment-button").css("display", 'none');
+				return false;
+			}
+		}
+	};
+
+	(function Annie_Init() {
+		Annie_Comment();
+	})();
+</script>
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#垃圾对象的判断"><span class="post-toc-text">垃圾对象的判断</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#垃圾回收算法"><span class="post-toc-text">垃圾回收算法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#垃圾收集器"><span class="post-toc-text">垃圾收集器</span></a></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
 		</div>
 		</main>
 		
@@ -262,6 +441,11 @@
 	}
 </style>
 
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
 
 
 
@@ -603,6 +787,8 @@
 
 
 
+
+	<script type="text/javascript" src="/js/toc.js"></script>
 
 
 <script type="text/javascript" src="/js/main.js"></script>
