@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>文章分类</title>
+	<title>避免出现空指针的几种技巧</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,8 +54,8 @@
 		
 		
 			
-			<p class="page-name">分类</p>
-		
+			<p class="page-name">当前文章&nbsp;:&nbsp;《避免出现空指针的几种技巧》</p>
+			
 		
 	
 	
@@ -144,33 +144,225 @@
 		<!--main-->
 		<main> 
 		<div class="page-container">
-		<!--content start-->
+		<!-- content srart -->
 <div class="am-g am-g-fixed blog-fixed blog-content">
-    <div class="am-u-md-8 am-u-sm-12">
-        <article class="am-article blog-article-p">
+	<div class="am-u-md-8 am-u-sm-12">
 
-            <div class="page-header">
-	<div class="blog-text-center">
-		
-			
-			<i class="fa fa-pencil-square-o">总计7个分类</i>
-			
-		  	 		
-	</div>    	 		
-</div>  	 		
+		<article class="am-article blog-article-p">
 
-            
+			<div class="am-article-hd">
+				
 
-                <div class="category">
-                    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySql/">MySql</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tomcat/">tomcat</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a><span class="category-list-count">1</span></li></ul>
-                </div>
 
-            
-        </article>
-    </div>
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2018/06/06/避免出现空指针的几种技巧/" itemprop="url">		
+			避免出现空指针的几种技巧		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2018/06/06/避免出现空指针的几种技巧/" itemprop="url">
+	<time datetime="2018-06-06T13:20:31.000Z" itemprop="datePublished">
+  		2018-06-06
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#Java" title="Java" rel="14">Java</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>&ensp;当一个变量的值为 null 时，在 Java 里面表示一个不存在的空对象，没有实际内容，没有给它分配内存，null 也是对象成员变量的默认值。所以，一个对象如果没有进行初始化操作，则调用这个对象的方法或者变量，就会出现空指针异常。空指针它是属于运行时异常 RuntimeException 的子类，不是捕获型的，只有在程序运行时才报出来，而且会造成程序中断。</p>
+<h3 id="字符串比较常量放前面"><a href="#字符串比较常量放前面" class="headerlink" title="字符串比较常量放前面"></a>字符串比较常量放前面</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">//容易造成空指针异常</span></span><br><span class="line"><span class="keyword">if</span>(status.equals(system))&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">  <span class="comment">//规范写法</span></span><br><span class="line"><span class="keyword">if</span>(SUCCESS.equals(status))&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="初始化默认值"><a href="#初始化默认值" class="headerlink" title="初始化默认值"></a>初始化默认值</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  Object object = <span class="keyword">new</span> Object();</span><br><span class="line"> </span><br><span class="line">String s = StringUtils.EMPTY;</span><br></pre></td></tr></table></figure>
+<h3 id="返回空集合"><a href="#返回空集合" class="headerlink" title="返回空集合"></a>返回空集合</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;SysLog&gt; <span class="title">getSysLogList</span><span class="params">()</span></span>&#123;</span><br><span class="line">  List&lt;SysLog&gt; list = sysLogMapper.getSysLogList();</span><br><span class="line">  <span class="keyword">return</span> list == <span class="keyword">null</span> ? <span class="keyword">new</span> ArrayList&lt;SysLog&gt;() : list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Assert（断言）"><a href="#Assert（断言）" class="headerlink" title="Assert（断言）"></a>Assert（断言）</h3><p>&ensp;测试代码或者调试程序时，总会做出一些假设，断言就是用于在代码中捕捉这些假设。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Java 中自带的断言关键字：assert，例：</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> userId == <span class="keyword">null</span> : <span class="string">"用户ID不能为空"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//默认是不启动断言检查的，需要要带上 JVM 参数：-enableassertions 才能生效。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Spring中的Assert</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;SysLog&gt; <span class="title">getSysLogListByUserId</span><span class="params">(String userId)</span> </span>&#123;</span><br><span class="line">	Assert.notNull(userId, <span class="string">"用户ID不能为空"</span>);</span><br><span class="line">	<span class="keyword">return</span> sysLogMapper.getSysLogListByUserId(userId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用Java8新特性Optional"><a href="#使用Java8新特性Optional" class="headerlink" title="使用Java8新特性Optional"></a>使用Java8新特性Optional</h3><h4 id="方法说明"><a href="#方法说明" class="headerlink" title="方法说明"></a>方法说明</h4><ul>
+<li>of    把指定的值封装为Optional对象，如果指定的值为null，则抛出NullPointerException</li>
+<li>empty    创建一个空的Optional对象</li>
+<li>ofNullable    把指定的值封装为Optional对象，如果指定的值为null，则创建一个空的Optional对象</li>
+<li>get    如果创建的Optional中有值存在，则返回此值，否则抛出NoSuchElementException</li>
+<li>orElse    如果创建的Optional中有值存在，则返回此值，否则返回一个默认值</li>
+<li>orElseGet    如果创建的Optional中有值存在，则返回此值，否则返回一个由Supplier接口生成的值</li>
+<li>orElseThrow    如果创建的Optional中有值存在，则返回此值，否则抛出一个由指定的Supplier接口生成的异常</li>
+<li>filter    如果创建的Optional中的值满足filter中的条件，则返回包含该值的Optional对象，否则返回一个空的Optional对象</li>
+<li>map    如果创建的Optional中的值存在，对该值执行提供的Function函数调用</li>
+<li>flagMap    如果创建的Optional中的值存在，就对该值执行提供的Function函数调用，返回一个Optional类型的值，否则就返回一个空的Optional对象</li>
+<li>isPresent    如果创建的Optional中的值存在，返回true，否则返回false</li>
+<li>ifPresent    如果创建的Optional中的值存在，则执行该方法的调用，否则什么也不做</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 参数不能是null</span></span><br><span class="line">Optional&lt;Integer&gt; optional1 = Optional.of(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 参数可以是null</span></span><br><span class="line">Optional&lt;Integer&gt; optional2 = Optional.ofNullable(<span class="keyword">null</span>);</span><br><span class="line"><span class="comment">// 参数可以是非null</span></span><br><span class="line">Optional&lt;Integer&gt; optional3 = Optional.ofNullable(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Optional.empty()：所有null包装成的Optional对象</span></span><br><span class="line">Optional&lt;Integer&gt; optional1 = Optional.ofNullable(<span class="keyword">null</span>);</span><br><span class="line">Optional&lt;Integer&gt; optional2 = Optional.ofNullable(<span class="keyword">null</span>);</span><br><span class="line">System.out.println(optional1 == optional2);<span class="comment">// true</span></span><br><span class="line">System.out.println(optional1 == Optional.&lt;Integer&gt;empty());<span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//isPresent()：判断值是否存在</span></span><br><span class="line">Optional&lt;Integer&gt; optional1 = Optional.ofNullable(<span class="number">1</span>);</span><br><span class="line">Optional&lt;Integer&gt; optional2 = Optional.ofNullable(<span class="keyword">null</span>);</span><br><span class="line">System.out.println(optional1.isPresent() == <span class="keyword">true</span>);</span><br><span class="line">System.out.println(optional2.isPresent() == <span class="keyword">false</span>);</span><br></pre></td></tr></table></figure>
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2018/07/13/Java中Pattern、Matcher类的简单使用/" title="Java中Pattern、Matcher类的简单使用">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2017/09/27/jQuery和js初始化的几种方式/" title="jQuery和js初始化的几种方式">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<div class="theme-annie-comment-button-container">
+	<button id="annie-comment-button" class="theme-annie-comment-button" onclick="Annie_Comment()">
+		加载评论
+		<!--加载评论-->
+	</button>
 </div>
 
+<div id="annie-comment-container" class="theme-annie-comment-main-container">
 
+	
+		
+			<!-- comment gitalk -->
+			<!-- show gitalk comment -->
+
+  <div id="gitalk-container"></div>
+
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+	//thanks O-R
+	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+	//去除尾部匹配正则数组的字符串  
+	//remove redundant characters
+	String.prototype.trimEnd = function(regStr) {
+		var result = this;
+		if(regStr == undefined || regStr == null || regStr == "") {
+			return result;
+		}
+		var array = regStr.split(',');
+
+		if(array.length > 0) {
+
+			var c = array.shift();
+			var str = this;
+			var i = str.length;
+			var rg = new RegExp(c);
+			var matchArr = str.match(rg);
+
+			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+				matchStr = matchStr + '$';
+				result = str.replace(new RegExp(matchStr), "");
+			}
+
+			if(array.length > 0) {
+				return result.trimEnd(array.join())
+			} else {
+				return result;
+			}
+		}
+	};
+
+	//create gitalk
+	var gitalk = new Gitalk({
+		clientID: 'd4992264b2fe52074ee6',
+		clientSecret: 'fa075661aa97dfea6d8d716c1d8049cf469c77ad',
+		//id: window.location.pathname,
+		// id: (window.location.pathname).split("/").pop().substring(0, 49),
+		id: md5(location.href.trimEnd('#.*$,\\?.*$,index.html$')),
+		repo: 'blog-comments',
+		owner: 'LChenYang',
+		admin: 'LChenYang',
+		distractionFreeMode: 'true',
+	})
+	gitalk.render('gitalk-container');
+</script>
+		
+	
+
+</div>
+
+<script type="text/javascript">
+	/* Show Comment */
+	var Annie_Comment = function() {
+		function Show_Hidden(obj) {
+			obj.style.display = 'block';
+		}
+		
+		//var obutton = $('#annie-comment-button');
+		//var obutton = $('#annie-comment-container');
+		var obutton = document.getElementById("annie-comment-button" || "0");
+		var odiv = document.getElementById("annie-comment-container");
+		if( 'obutton' ) {
+			obutton.onclick = function() {
+				Show_Hidden(odiv);
+				$("#annie-comment-button").css("display", 'none');
+				return false;
+			}
+		}
+	};
+
+	(function Annie_Init() {
+		Annie_Comment();
+	})();
+</script>
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#字符串比较常量放前面"><span class="post-toc-text">字符串比较常量放前面</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#初始化默认值"><span class="post-toc-text">初始化默认值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#返回空集合"><span class="post-toc-text">返回空集合</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Assert（断言）"><span class="post-toc-text">Assert（断言）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用Java8新特性Optional"><span class="post-toc-text">使用Java8新特性Optional</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方法说明"><span class="post-toc-text">方法说明</span></a></li></ol></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
 		</div>
 		</main>
 		
@@ -226,6 +418,11 @@
 	}
 </style>
 
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
 
 
 
@@ -567,6 +764,8 @@
 
 
 
+
+	<script type="text/javascript" src="/js/toc.js"></script>
 
 
 <script type="text/javascript" src="/js/main.js"></script>
