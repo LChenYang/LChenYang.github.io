@@ -338,6 +338,141 @@ Matcher 使用Pattern实例提供的正则表达式对目标字符串进行匹�
 			<article class="am-g blog-entry-article">
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+					<img src="/img/171225.jpg" class="am-u-sm-12">
+				</div>	
+
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+					<span class="theme-annie-post-date">
+						<a href="/2017/12/25/String比较大全/" itemprop="url">
+	<time datetime="2017-12-25T10:49:30.000Z" itemprop="datePublished">
+  		2017-12-25
+  </time>
+</a>    
+
+					</span>
+					<span class="theme-annie-post-title">
+						
+	
+		<a href="/2017/12/25/String比较大全/" itemprop="url">		
+			String比较大全		
+		</a>
+	
+
+					</span>
+					
+					
+						<p>
+							
+								不同创建方式比较1234String str1 = "abcd";String str2 = new String("abcd");System.out.println(str1==str2);//false第一种方式是在常量池中拿对象，第二种方式是直接在堆内存空间创建一个新的对象
+连接表达式 +
+只有使用引号包含文本的方式创建的String对象之间使用“+”连接产生的新对象才会被加入字符串池中。	
+							  
+						</p> 
+					
+
+					
+						<span class="continue-read">      	
+							<a href="/2017/12/25/String比较大全/" class="pull-right">
+								展开全文
+							</a>		
+						</span>
+					         		
+				</div>
+		
+			</article>
+		
+			<article class="am-g blog-entry-article">
+
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+					<img src="/img/171206.jpg" class="am-u-sm-12">
+				</div>	
+
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+					<span class="theme-annie-post-date">
+						<a href="/2017/12/06/String常量池/" itemprop="url">
+	<time datetime="2017-12-06T13:42:30.000Z" itemprop="datePublished">
+  		2017-12-06
+  </time>
+</a>    
+
+					</span>
+					<span class="theme-annie-post-title">
+						
+	
+		<a href="/2017/12/06/String常量池/" itemprop="url">		
+			String常量池		
+		</a>
+	
+
+					</span>
+					
+					
+						<p>
+							
+								字符串常量池的设计思想&ensp;&ensp;字符串的分配和其他的对象分配一样耗费高昂的时间与空间代价，作为最基础的数据类型大量频繁的创建字符串极大程度地影响程序的性能。JVM为了提高性能和减少内存开销，在实例化字符串常量的时候进行了一些优化，为字符串开辟一个字符串常量池类似于缓存区。创建字符串常量时，首先坚持字符串常量池是否存在该字符串若存在该字符串返回引用实例，不存在则实例化该字符串并放入池中	
+							  
+						</p> 
+					
+
+					
+						<span class="continue-read">      	
+							<a href="/2017/12/06/String常量池/" class="pull-right">
+								展开全文
+							</a>		
+						</span>
+					         		
+				</div>
+		
+			</article>
+		
+			<article class="am-g blog-entry-article">
+
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+					<img src="/img/171112.jpg" class="am-u-sm-12">
+				</div>	
+
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+					<span class="theme-annie-post-date">
+						<a href="/2017/11/19/StringBuffer和StringBuilder的区别/" itemprop="url">
+	<time datetime="2017-11-19T13:43:30.000Z" itemprop="datePublished">
+  		2017-11-19
+  </time>
+</a>    
+
+					</span>
+					<span class="theme-annie-post-title">
+						
+	
+		<a href="/2017/11/19/StringBuffer和StringBuilder的区别/" itemprop="url">		
+			StringBuffer和StringBuilder的区别		
+		</a>
+	
+
+					</span>
+					
+					
+						<p>
+							
+								&ensp;&ensp;StringBuffer和StringBuilder都是可变的字符串,都继承了一个抽象的字符串父类：AbstractStringBuilder。
+线程安全StringBuffer：线程安全，StringBuilder：线程不安全。因为StringBuffer的所有公开方法都有synchronized修饰，而 StringBuilder 并没有 synchronized 修饰	
+							  
+						</p> 
+					
+
+					
+						<span class="continue-read">      	
+							<a href="/2017/11/19/StringBuffer和StringBuilder的区别/" class="pull-right">
+								展开全文
+							</a>		
+						</span>
+					         		
+				</div>
+		
+			</article>
+		
+			<article class="am-g blog-entry-article">
+
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
 					<img src="/img/邓肯2.jpg" class="am-u-sm-12">
 				</div>	
 
@@ -468,157 +603,6 @@ Matcher 使用Pattern实例提供的正则表达式对目标字符串进行匹�
 					
 						<span class="continue-read">      	
 							<a href="/2017/08/19/JVM的重要组成/" class="pull-right">
-								展开全文
-							</a>		
-						</span>
-					         		
-				</div>
-		
-			</article>
-		
-			<article class="am-g blog-entry-article">
-
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/双少.jpg" class="am-u-sm-12">
-				</div>	
-
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-					<span class="theme-annie-post-date">
-						<a href="/2017/07/20/MYSQL分页limit速度太慢优化方法/" itemprop="url">
-	<time datetime="2017-07-20T11:50:20.000Z" itemprop="datePublished">
-  		2017-07-20
-  </time>
-</a>    
-
-					</span>
-					<span class="theme-annie-post-title">
-						
-	
-		<a href="/2017/07/20/MYSQL分页limit速度太慢优化方法/" itemprop="url">		
-			MYSQL分页limit速度太慢优化方法		
-		</a>
-	
-
-					</span>
-					
-					
-						<p>
-							
-								前言&ensp;&ensp;在mysql中limit可以实现快速分页，但是如果数据量大时limit必须优化才能有效的合理的实现分页了。当一个表有几百万的数据的时候成了问题！如 select name from t limit 0,10 这个没有问题 当 limit 200000,10 的时候数据读取就很慢。limit10000,10的意思扫描满足条件的10010行，扔掉前面的10000行，返回最后	
-							  
-						</p> 
-					
-
-					
-						<span class="continue-read">      	
-							<a href="/2017/07/20/MYSQL分页limit速度太慢优化方法/" class="pull-right">
-								展开全文
-							</a>		
-						</span>
-					         		
-				</div>
-		
-			</article>
-		
-			<article class="am-g blog-entry-article">
-
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/ss.jpg" class="am-u-sm-12">
-				</div>	
-
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-					<span class="theme-annie-post-date">
-						<a href="/2017/07/09/Mysql常用SQL查询语句优化方法/" itemprop="url">
-	<time datetime="2017-07-09T11:30:27.000Z" itemprop="datePublished">
-  		2017-07-09
-  </time>
-</a>    
-
-					</span>
-					<span class="theme-annie-post-title">
-						
-	
-		<a href="/2017/07/09/Mysql常用SQL查询语句优化方法/" itemprop="url">		
-			Mysql常用SQL查询语句优化方法		
-		</a>
-	
-
-					</span>
-					
-					
-						<p>
-							
-								
-应尽量避免在 where 子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。
-
-对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。
-
-应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描。如：
- 123select id from t where num is nu	
-							  
-						</p> 
-					
-
-					
-						<span class="continue-read">      	
-							<a href="/2017/07/09/Mysql常用SQL查询语句优化方法/" class="pull-right">
-								展开全文
-							</a>		
-						</span>
-					         		
-				</div>
-		
-			</article>
-		
-			<article class="am-g blog-entry-article">
-
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/kuli.jpg" class="am-u-sm-12">
-				</div>	
-
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-					<span class="theme-annie-post-date">
-						<a href="/2017/06/25/linux文件权限类命令/" itemprop="url">
-	<time datetime="2017-06-25T12:57:20.000Z" itemprop="datePublished">
-  		2017-06-25
-  </time>
-</a>    
-
-					</span>
-					<span class="theme-annie-post-title">
-						
-	
-		<a href="/2017/06/25/linux文件权限类命令/" itemprop="url">		
-			linux文件权限类命令		
-		</a>
-	
-
-					</span>
-					
-					
-						<p>
-							
-								chmod改变权限
-基本语法：
-chmod  [{ugoa}{+-=}{rwx}] [文件或目录] [mode=421 ]  [文件或目录]
-
-功能描述
-
-改变文件或者目录权限
-文件: r-查看；w-修改；x-执行文件
-目录: r-列出目录内容；w-在目录中创建和删除；x-进入目录
-删除一个文件的前提条件:该文件所在的目录有写权限，你才能删除该文件。
-
-
-示例
-12345[root@centero	
-							  
-						</p> 
-					
-
-					
-						<span class="continue-read">      	
-							<a href="/2017/06/25/linux文件权限类命令/" class="pull-right">
 								展开全文
 							</a>		
 						</span>
