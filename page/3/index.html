@@ -153,6 +153,53 @@
 			<article class="am-g blog-entry-article">
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+					<img src="/img/詹姆斯欧文.jpg" class="am-u-sm-12">
+				</div>	
+
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+					<span class="theme-annie-post-date">
+						<a href="/2017/08/25/JVM的垃圾回收机制/" itemprop="url">
+	<time datetime="2017-08-25T13:22:42.000Z" itemprop="datePublished">
+  		2017-08-25
+  </time>
+</a>    
+
+					</span>
+					<span class="theme-annie-post-title">
+						
+	
+		<a href="/2017/08/25/JVM的垃圾回收机制/" itemprop="url">		
+			JVM的垃圾回收机制		
+		</a>
+	
+
+					</span>
+					
+					
+						<p>
+							
+								垃圾对象的判断&ensp;&ensp;判断对象为垃圾对象有两种方法：引用计数法，可达性分析法，普遍是的是可达性分析法
+可达性分析法的实现原理：
+
+&ensp;&ensp;定义gcroot一直往下找，如果能找到对象，证明该对象在使用，如果找不到该对象，标记该对象应该回收。上图中栈作为gcroot只是其中一种情况，可作为gcroots的对象有虚拟机栈（栈帧中的局部变量表），方法区的类属性所引用的对象，	
+							  
+						</p> 
+					
+
+					
+						<span class="continue-read">      	
+							<a href="/2017/08/25/JVM的垃圾回收机制/" class="pull-right">
+								展开全文
+							</a>		
+						</span>
+					         		
+				</div>
+		
+			</article>
+		
+			<article class="am-g blog-entry-article">
+
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
 					<img src="/img/热火三巨头.jpg" class="am-u-sm-12">
 				</div>	
 
@@ -596,50 +643,6 @@ Tomcat目录：tomcat
 					
 						<span class="continue-read">      	
 							<a href="/2017/03/22/浅析Tomcat原理及请求过程/" class="pull-right">
-								展开全文
-							</a>		
-						</span>
-					         		
-				</div>
-		
-			</article>
-		
-			<article class="am-g blog-entry-article">
-
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/luosi2.jpg" class="am-u-sm-12">
-				</div>	
-
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-					<span class="theme-annie-post-date">
-						<a href="/2017/03/19/Tomcat内存溢出解决办法/" itemprop="url">
-	<time datetime="2017-03-19T12:49:43.000Z" itemprop="datePublished">
-  		2017-03-19
-  </time>
-</a>    
-
-					</span>
-					<span class="theme-annie-post-title">
-						
-	
-		<a href="/2017/03/19/Tomcat内存溢出解决办法/" itemprop="url">		
-			Tomcat内存溢出解决办法		
-		</a>
-	
-
-					</span>
-					
-					
-						<p>
-							
-								问题使用Java程序从数据库中查询大量的数据时出现异常:java.lang.OutOfMemoryError: Java heap space在JVM中如果98％的时间是用于GC且可用的 Heap size 不足2％的时候将抛出此异常信息。JVM堆的设置是指java程序运行过程中JVM可以调配使用的内存空间的设置.JVM在启动的时候会自动设置Heap size的值，其初始空间(即-Xms)是物理内	
-							  
-						</p> 
-					
-
-					
-						<span class="continue-read">      	
-							<a href="/2017/03/19/Tomcat内存溢出解决办法/" class="pull-right">
 								展开全文
 							</a>		
 						</span>

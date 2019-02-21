@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>文章归档: 2019/2</title>
+	<title>Java反射机制</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,9 +54,8 @@
 		
 		
 			
-			<!-- && is_current('archives/index.html') -->
-			<p class="page-name">文章归档</p>
-		
+			<p class="page-name">当前文章&nbsp;:&nbsp;《Java反射机制》</p>
+			
 		
 	
 	
@@ -148,50 +147,206 @@
 		<!-- content srart -->
 <div class="am-g am-g-fixed blog-fixed blog-content">
 	<div class="am-u-md-8 am-u-sm-12">
-		<div class="archive">
 
-			<div class="blog-text-center">
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
 				
-					<i class="fa fa-book">总计33篇文章</i>
-				
-			</div>  
 
-			
 
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2018/05/10/Java反射机制/" itemprop="url">		
+			Java反射机制		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2018/05/10/Java反射机制/" itemprop="url">
+	<time datetime="2018-05-10T13:14:12.000Z" itemprop="datePublished">
+  		2018-05-10
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
 							
-				
-				
-				
+								<a href="#Java" title="Java" rel="20">Java</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
 					
+						<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>&ensp;&ensp;Java 反射机制是指在运行状态中，对于任意一个类，都能够获得这个类的所有属性和方法，对于任意一个对象都能够调用它的任意一个属性和方法。这种在运行时动态的获取信息以及动态调用对象的方法的功能称为Java 的反射机制。</p>
+<h3 id="反射机制的作用"><a href="#反射机制的作用" class="headerlink" title="反射机制的作用"></a>反射机制的作用</h3><p>&ensp;&ensp;反射机制的目的就是要增加程序的灵活性，它能够有效的避免将程序写死在我们的代码中。<br>举个例子，不使用反射：实我们例化一个 A()对象，new一个A()，这时候，我们如果想要去实例化别的类， 那么必须去修改源代码，并重新编译。<br>使用反射： class.forName(“A”).newInstance()； 而且这个类描述我们可以写到配置文件中，如 ***.xml配置文件, 这样如果想实例化其他类，只要修改配置文件的”类描述”就可以了实现，不需要再次去修改我们的代码并编译。</p>
+<h3 id="获取Class对象的3种方式"><a href="#获取Class对象的3种方式" class="headerlink" title="获取Class对象的3种方式"></a>获取Class对象的3种方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">    Life life = <span class="keyword">new</span> Life();</span><br><span class="line">	Class  class1 = life.getClass();</span><br><span class="line">	System.out.println(class1);</span><br><span class="line">	<span class="comment">// 2 任意数据类型都具备一个class静态属性</span></span><br><span class="line">	Class  class2 = Life.class;</span><br><span class="line">	System.out.println(class2);</span><br><span class="line">	Class  class3=  Class.forName(<span class="string">"com.reflect.Life"</span>);</span><br><span class="line">	System.out.println(class3);</span><br><span class="line">```	</span><br><span class="line">		</span><br><span class="line">&amp;ensp;&amp;ensp;三种方式的比较：前两种方式，我们必须明确Left类型，而第三种方式知道这种类型的字符串就行.这种扩展更强。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 获取构造方法</span><br><span class="line"></span><br><span class="line">```Java</span><br><span class="line">	Class  class3=  Class.forName(<span class="string">"com.reflect.Life"</span>);</span><br><span class="line">	<span class="comment">//获取无参构造</span></span><br><span class="line">	Life life1 = (Life)class3.newInstance();</span><br><span class="line">	<span class="comment">//获取有参构造</span></span><br><span class="line">	Constructor constructor = class3.getConstructor(String.class);</span><br><span class="line">	Life life2 = (Life)constructor.newInstance(<span class="string">"炸鸡"</span>);</span><br><span class="line">```			</span><br><span class="line"></span><br><span class="line">### 获取成员变量</span><br><span class="line">	</span><br><span class="line">```Java	</span><br><span class="line">	Class  class3=  Class.forName(<span class="string">"com.reflect.Life"</span>);</span><br><span class="line">	<span class="comment">//  getDeclaredFields()  获取当前类所有属性 </span></span><br><span class="line">	<span class="comment">//  getFields() 获取公有属性(包括父类)</span></span><br><span class="line">	Field fields[] = class3.getDeclaredFields();</span><br><span class="line">	<span class="comment">// 取消安全检查才能获取或者修改private修饰的属性，也可以单独对某个属性进行设置</span></span><br><span class="line">	Field.setAccessible(fields, <span class="keyword">true</span>); </span><br><span class="line">	<span class="keyword">for</span> (Field field : fields) &#123;</span><br><span class="line">	    System.out.println(<span class="string">"*******属性名:"</span> + field.getName() + <span class="string">"***属性值:"</span> + field.get(class3.newInstance()) + <span class="string">"****属性类型:"</span> + field.getType());</span><br><span class="line">	&#125;</span><br><span class="line">	Field meal = class3.getDeclaredField(<span class="string">"meal"</span>);</span><br><span class="line">	<span class="comment">// 取消安全检查才能获取或者修改private修饰的属性，也可以批量对所有属性进行设置</span></span><br><span class="line">	meal.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">	meal.set(class3.newInstance(), <span class="string">"啤酒"</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="获取成员方法"><a href="#获取成员方法" class="headerlink" title="获取成员方法"></a>获取成员方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Class  class3=  Class.forName(<span class="string">"com.reflect.Life"</span>);</span><br><span class="line"><span class="comment">// getMethods()获取公有方法</span></span><br><span class="line"><span class="comment">// getDeclaredMethods()获取所有方法 </span></span><br><span class="line">Method[] methods = class3.getDeclaredMethods();</span><br><span class="line"><span class="comment">// 取消安全性检查</span></span><br><span class="line">Method.setAccessible(methods, <span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">for</span> (Method method : methods) &#123;</span><br><span class="line">    System.out.println(<span class="string">"*******方法名:"</span> + method.getName() + <span class="string">"*******返回类型:"</span> + method.getReturnType().getName());</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 获取无参方法</span></span><br><span class="line">Method getMethod = class3.getDeclaredMethod(<span class="string">"getMeal"</span>);</span><br><span class="line">getMethod.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="comment">// 调用无参方法</span></span><br><span class="line">getMethod.invoke(class3.newInstance());</span><br><span class="line"><span class="comment">// 获取有参方法</span></span><br><span class="line">Method setMethod = class3.getDeclaredMethod(<span class="string">"setMeal"</span>, String.class);</span><br><span class="line">setMethod.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="comment">// 调用有参方法</span></span><br><span class="line">setMethod.invoke(class3.newInstance(), <span class="string">"包子"</span>);</span><br></pre></td></tr></table></figure>
 
 					
-					<!--<a href="/archives/2019" class="archive-year">2019</a>-->
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2019/02">
-							2019-02
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2019/02/18/认识Websocket/" itemprop="url">认识Websocket</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2019/02/18/认识Websocket/" itemprop="url">02-18</a>
-					</div>
-				</div>		        							
-			
-				
-			    
-		</div>
-	</div>
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2018/06/06/避免出现空指针的几种技巧/" title="避免出现空指针的几种技巧">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2018/04/17/更换jdk版本后打开eclipse出现错误/" title="更换jdk版本后打开eclipse出现错误">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<div class="theme-annie-comment-button-container">
+	<button id="annie-comment-button" class="theme-annie-comment-button" onclick="Annie_Comment()">
+		加载评论
+		<!--加载评论-->
+	</button>
 </div>
 
+<div id="annie-comment-container" class="theme-annie-comment-main-container">
+
+	
+		
+			<!-- comment gitalk -->
+			<!-- show gitalk comment -->
+
+  <div id="gitalk-container"></div>
+
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+	//thanks O-R
+	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+	//去除尾部匹配正则数组的字符串  
+	//remove redundant characters
+	String.prototype.trimEnd = function(regStr) {
+		var result = this;
+		if(regStr == undefined || regStr == null || regStr == "") {
+			return result;
+		}
+		var array = regStr.split(',');
+
+		if(array.length > 0) {
+
+			var c = array.shift();
+			var str = this;
+			var i = str.length;
+			var rg = new RegExp(c);
+			var matchArr = str.match(rg);
+
+			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+				matchStr = matchStr + '$';
+				result = str.replace(new RegExp(matchStr), "");
+			}
+
+			if(array.length > 0) {
+				return result.trimEnd(array.join())
+			} else {
+				return result;
+			}
+		}
+	};
+
+	//create gitalk
+	var gitalk = new Gitalk({
+		clientID: 'd4992264b2fe52074ee6',
+		clientSecret: 'fa075661aa97dfea6d8d716c1d8049cf469c77ad',
+		//id: window.location.pathname,
+		// id: (window.location.pathname).split("/").pop().substring(0, 49),
+		id: md5(location.href.trimEnd('#.*$,\\?.*$,index.html$')),
+		repo: 'blog-comments',
+		owner: 'LChenYang',
+		admin: 'LChenYang',
+		distractionFreeMode: 'true',
+	})
+	gitalk.render('gitalk-container');
+</script>
+		
+	
+
+</div>
+
+<script type="text/javascript">
+	/* Show Comment */
+	var Annie_Comment = function() {
+		function Show_Hidden(obj) {
+			obj.style.display = 'block';
+		}
+		
+		//var obutton = $('#annie-comment-button');
+		//var obutton = $('#annie-comment-container');
+		var obutton = document.getElementById("annie-comment-button" || "0");
+		var odiv = document.getElementById("annie-comment-container");
+		if( 'obutton' ) {
+			obutton.onclick = function() {
+				Show_Hidden(odiv);
+				$("#annie-comment-button").css("display", 'none');
+				return false;
+			}
+		}
+	};
+
+	(function Annie_Init() {
+		Annie_Comment();
+	})();
+</script>
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#反射机制的作用"><span class="post-toc-text">反射机制的作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#获取Class对象的3种方式"><span class="post-toc-text">获取Class对象的3种方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#获取成员方法"><span class="post-toc-text">获取成员方法</span></a></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
 		</div>
 		</main>
 		
@@ -247,6 +402,11 @@
 	}
 </style>
 
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
 
 
 
@@ -588,6 +748,8 @@
 
 
 
+
+	<script type="text/javascript" src="/js/toc.js"></script>
 
 
 <script type="text/javascript" src="/js/main.js"></script>
